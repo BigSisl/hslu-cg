@@ -1,3 +1,4 @@
+/// <reference path="runtime.d.ts" />
 //
 // DI Computer Graphics
 //
@@ -10,11 +11,14 @@ window.onload = startup;
 // the gl object is saved globally
 var gl;
 
+
+
 // we keep all local parameters for the program in a single object
 var ctx = {
     shaderProgram: -1,
     aVertexPositionId: -1,
-    uColorId: -1
+    uColorId: -1,
+    uProjectionMatrix: -1
 };
 
 // we keep all the parameters for drawing a specific object together
@@ -54,6 +58,12 @@ function setUpAttributesAndUniforms(){
     "use strict";
     ctx.aVertexPositionId = gl.getAttribLocation(ctx.shaderProgram, "aVertexPosition");
     ctx.uColorId = gl.getUniformLocation(ctx.shaderProgram, "uColor");
+    ctx.uProjectionMatrix = gl.getUniformLocation(ctx.shaderProgram, "uProjectionMatrix");
+}
+
+function setupWorldCoordinates() {
+    var projectionMatrix = mat3.create();
+        
 }
 
 /**
@@ -62,11 +72,13 @@ function setUpAttributesAndUniforms(){
 function setUpBuffers(){
     "use strict";
     rectangleObject.buffer = gl.createBuffer();
+    
     var vertices = [
         -0.5, -0.5,
         0.5, -0.5,
         0.5, 0.5,
         -0.5, 0.5];
+
     gl.bindBuffer(gl.ARRAY_BUFFER, rectangleObject.buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 }
