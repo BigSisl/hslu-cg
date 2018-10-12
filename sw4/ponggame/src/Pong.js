@@ -76,7 +76,6 @@ function setUpBuffers(){
  */
 function draw() {
     "use strict";
-    console.log("Drawing");
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, rectangleObject.buffer);
