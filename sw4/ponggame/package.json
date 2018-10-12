@@ -1,7 +1,7 @@
 {
   "name": "ponggame",
   "version": "0.0.0",
-  "description": "Computer graphics exercise 3 pong gmae",
+  "description": "Computer graphics exercise 3 pong game",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,5 +14,9 @@
   "bugs": {
     "url": "https://github.com/BigSisl/hslu-cg/issues"
   },
-  "homepage": "https://github.com/BigSisl/hslu-cg#readme"
+  "homepage": "https://github.com/BigSisl/hslu-cg#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.0",
+    "gulp": "^3.9.1"
+  }
 }
