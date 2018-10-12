@@ -1,4 +1,6 @@
 /// <reference path="runtime.d.ts" />
+
+//@ts-check
 //
 // DI Computer Graphics
 //
@@ -9,21 +11,20 @@
 window.onload = startup;
 
 // the gl object is saved globally
+/** @type { WebGLRenderingContext } */
 var gl;
-
-
 
 // we keep all local parameters for the program in a single object
 var ctx = {
+    /** @type { WebGLProgram } */
     shaderProgram: -1,
     aVertexPositionId: -1,
+    /** @type { WebGLUniformLocation } */
+    uModelMat: -1,
+    /** @type { WebGLUniformLocation } */
     uColorId: -1,
+    /** @type { WebGLUniformLocation } */
     uProjectionMatrix: -1
-};
-
-// we keep all the parameters for drawing a specific object together
-var rectangleObject = {
-    buffer: -1
 };
 
 /**
@@ -36,7 +37,7 @@ function startup() {
     initGL();
     window.addEventListener('keyup', onKeyup, false);
     window.addEventListener('keydown', onKeydown, false);
-    draw();
+    startGame();
 }
 
 /**
@@ -47,7 +48,7 @@ function initGL() {
     ctx.shaderProgram = loadAndCompileShaders(gl, 'VertexShader.glsl', 'FragmentShader.glsl');
     setUpAttributesAndUniforms();
     setUpBuffers();
-    
+    setupWorldCoordinates();
     gl.clearColor(0.1, 0.1, 0.1, 1);
 }
 
@@ -59,11 +60,14 @@ function setUpAttributesAndUniforms(){
     ctx.aVertexPositionId = gl.getAttribLocation(ctx.shaderProgram, "aVertexPosition");
     ctx.uColorId = gl.getUniformLocation(ctx.shaderProgram, "uColor");
     ctx.uProjectionMatrix = gl.getUniformLocation(ctx.shaderProgram, "uProjectionMatrix");
+    ctx.uModelMat = gl.getUniformLocation(ctx.shaderProgram, "uModelMat");
 }
 
 function setupWorldCoordinates() {
     var projectionMatrix = mat3.create();
-        
+    mat3.fromScaling(projectionMatrix, [2.0/gl.drawingBufferWidth, 2.0/gl.drawingBufferHeight]);
+    gl.uniformMatrix3fv(ctx.uProjectionMatrix, false, projectionMatrix);
+    gl.uniformMatrix3fv(ctx.uModelMat, false, RectangleObject.modelMat);
 }
 
 /**
@@ -71,15 +75,16 @@ function setupWorldCoordinates() {
  */
 function setUpBuffers(){
     "use strict";
-    rectangleObject.buffer = gl.createBuffer();
+    RectangleObject.buffer = gl.createBuffer();
     
     var vertices = [
         -0.5, -0.5,
         0.5, -0.5,
         0.5, 0.5,
-        -0.5, 0.5];
+        -0.5, 0.5
+    ];
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, rectangleObject.buffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, RectangleObject.buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 }
 
@@ -87,15 +92,20 @@ function setUpBuffers(){
  * Draw the scene.
  */
 function draw() {
+
     "use strict";
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, rectangleObject.buffer);
-    gl.vertexAttribPointer(ctx.aVertexPositionId, 2, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(ctx.aVertexPositionId);
+}
 
-    gl.uniform4f(ctx.uColorId, 1, 1, 1, 1);
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+function startGame() {
+    var game = new PongGame();
+
+    var middle = new RectangleObject();
+    middle.scale = [2, gl.drawingBufferHeight];
+    game.addObject(middle);
+
+    game.start();
 }
 
 // Key Handling

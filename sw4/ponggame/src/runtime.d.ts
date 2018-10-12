@@ -1,5 +1,12 @@
-import { mat2, mat3 } from "gl-matrix";
+import * as glmatrix from "gl-matrix";
 
 declare global {
-    const mat2: mat2;
+    export class mat2 extends glmatrix.mat2 { }
+    export class mat3 extends glmatrix.mat3 { }
+    export class vec3 extends glmatrix.vec3 { }
+}
+
+interface GameObject {
+    draw()
+    update()
 }
