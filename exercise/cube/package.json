@@ -1,0 +1,22 @@
+{
+  "name": "ponggame",
+  "version": "0.0.0",
+  "description": "Computer graphics exercise 3 pong game",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BigSisl/hslu-cg.git"
+  },
+  "author": "lucien@zuercher.io",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BigSisl/hslu-cg/issues"
+  },
+  "homepage": "https://github.com/BigSisl/hslu-cg#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.0",
+    "gulp": "^3.9.1"
+  }
+}
