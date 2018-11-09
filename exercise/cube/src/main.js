@@ -18,6 +18,7 @@ var gl;
 var ctx = {
     /** @type { WebGLProgram } */
     shaderProgram: -1,
+    /** @type { any } */
     aVertexPositionId: -1,
     /** @type { WebGLUniformLocation } */
     uModelMat: -1,
@@ -71,20 +72,46 @@ function setupWorldCoordinates() {
 /**
  * Setup the buffers to use. If more objects are needed this should be split in a file per object.
  */
+
+/** @type { WebGLBuffer } */
+var buffer = -1;
+/** @type { WebGLBuffer } */
+var edgeBuffer = -1;
 function setUpBuffers(){
     "use strict";
 
-    Cube.buffer = gl.createBuffer();
+    Cube.setupVertexBuffer(gl);
 
-    var vertices = [
-        -0.5, -0.5,
-        0.5, -0.5,
-        0.5, 0.5,
-        -0.5, 0.5
+    var color_vertices_buffer = [
+        0.2,0.2,    0, 1, 1, 1,
+        0.2,0.5,    0, 1, 1, 1,
+        0.5,0.2,    0, 1, 1, 1,
+        0.5,0.5,    1, 0, 1, 1,
     ];
 
-//    gl.bindBuffer(gl.ARRAY_BUFFER, Cube.buffer);
-//    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+    buffer = gl.createBuffer();
+    edgeBuffer = gl.createBuffer();
+
+    var vertices = [
+        -0.5, -0.5, 1,
+        0.5, -0.5, 1,
+        0.5, 0.5, 1,
+        -0.5, 0.5, 1,
+    ];
+
+    var vertices_indexes = [
+        0,1,
+        1,2,
+        2,3,
+        3,0,
+    ];
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, edgeBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(vertices_indexes), gl.STATIC_DRAW);
+
 }
 
 /**
@@ -92,7 +119,11 @@ function setUpBuffers(){
  */
 function draw() {
 
+    mat3.scale(Cube.modelMat, Cube.modelMat, [100,100]);
+
     "use strict";
+    console.log("Drawing");
     gl.clear(gl.COLOR_BUFFER_BIT);
 
+    Cube.draw(gl, ctx.aVertexPositionId, ctx.uModelMat, ctx.uColorId);
 }
