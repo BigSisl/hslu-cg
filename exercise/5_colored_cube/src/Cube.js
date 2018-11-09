@@ -130,14 +130,6 @@ Cube.edgeBuffer = -1;
 Cube.vertexIndexes = -1;
 
 /** @param {WebGLRenderingContext} gl */
-Cube.configureVertexBuffer = function(gl) {
-    Cube.vertexBuffer = gl.createBuffer();
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, Cube.vertexBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(Cube.vertices), gl.STATIC_DRAW);
-};
-
-/** @param {WebGLRenderingContext} gl */
 Cube.configureEdgeBuffer = function(gl) {
     Cube.edgeBuffer = gl.createBuffer();
 

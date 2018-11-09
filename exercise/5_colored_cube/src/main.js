@@ -164,7 +164,6 @@ function setUpBuffers(){
         [1,1,0,1]
     ));
     Cube.configureEdgeBuffer(gl);
-    Cube.configureVertexBuffer(gl);
 }
 
 /**
@@ -183,6 +182,7 @@ function draw() {
  **/
 function update(deltaTime, lastTime) {
     mat4.rotateY(cube.modelMat, cube.modelMat, 0.001 * deltaTime);
-    mat4.rotateX(cube.modelMat, cube.modelMat, 0.001 * deltaTime);
+    mat4.rotateX(cube.modelMat, cube.modelMat, 0.0005 * deltaTime);
+    mat4.rotateZ(cube.modelMat, cube.modelMat, 0.0005 * deltaTime);
     draw();
 }
