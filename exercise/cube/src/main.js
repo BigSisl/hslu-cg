@@ -154,7 +154,6 @@ function setUpBuffers(){
  */
 function draw() {
     "use strict";
-    console.log("Drawing");
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     cube.draw(gl, ctx.aVertexPositionId, ctx.uModelMat, ctx.uColorId);
