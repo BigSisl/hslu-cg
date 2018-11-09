@@ -1,8 +1,9 @@
 attribute vec3 aVertexPosition;
-uniform mat3 uProjectionMatrix;
-uniform mat3 uModelMat;
+uniform mat4 uProjectionMatrix;
+uniform mat4 uModelMat;
+uniform mat4 uModelViewMatrix;
 
 void main() {
-    vec3 projectedPosition = uProjectionMatrix * uModelMat * aVertexPosition;
-    gl_Position = vec4(vec3(projectedPosition[0], projectedPosition[1], projectedPosition[2]), projectedPosition[2]);
+    vec4 projectedPosition = uProjectionMatrix * uModelViewMatrix * uModelMat * vec4(aVertexPosition[0], aVertexPosition[1], aVertexPosition[2], 1);
+    gl_Position = projectedPosition;
 }

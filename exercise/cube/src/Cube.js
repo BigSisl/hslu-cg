@@ -3,6 +3,34 @@
 
 class Cube {
 
+    constructor() {
+        this.modelMat = mat4.create();
+
+        let scale = 100;
+        mat4.translate(this.modelMat, this.modelMat, [0,0,0]);
+        mat4.scale(this.modelMat, this.modelMat, [scale, scale, scale]);
+//        mat4.rotateY(this.modelMat, this.modelMat, -45);
+//        mat4.rotateX(this.modelMat, this.modelMat, -45);
+    }
+
+    /**
+     * @param { WebGLRenderingContext } gl
+     * @param { any } aVertexPositionId
+     * @param { WebGLUniformLocation } uModelMat
+     * @param { WebGLUniformLocation } uColorId
+     */
+    draw(gl, aVertexPositionId, uModelMat, uColorId) {
+        gl.bindBuffer(gl.ARRAY_BUFFER, Cube.vertexBuffer);
+        gl.vertexAttribPointer(aVertexPositionId, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(aVertexPositionId);
+
+        gl.uniformMatrix4fv(uModelMat, false, this.modelMat);
+        gl.uniform4f(uColorId, 1, 1, 1, 1);
+
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Cube.edgeBuffer);
+        gl.drawElements(gl.LINES, 24, gl.UNSIGNED_SHORT, 0);
+    }
+
 }
 
 /** @param {WebGLRenderingContext} gl */
@@ -18,38 +46,24 @@ Cube.setupVertexBuffer = function(gl) {
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(Cube.vertexIndexes), gl.STATIC_DRAW);
 }
 
-/**
- * @param { WebGLRenderingContext } gl
- * @param { any } aVertexPositionId
- * @param { WebGLUniformLocation } uModelMat
- * @param { WebGLUniformLocation } uColorId
- */
-Cube.draw = function(gl, aVertexPositionId, uModelMat, uColorId) {
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.vertexAttribPointer(aVertexPositionId, 3, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(aVertexPositionId);
-
-    gl.uniformMatrix3fv(uModelMat, false, Cube.modelMat);
-    gl.uniform4f(uColorId, 1, 1, 1, 1);
-
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, edgeBuffer);
-    gl.drawElements(gl.LINES, 8, gl.UNSIGNED_SHORT, 0);
-
-}
-
 /** @type { WebGLBuffer } */
 Cube.vertexBuffer = -1;
 /** @type { WebGLBuffer } */
 Cube.edgeBuffer = -1;
-Cube.modelMat = mat3.create();
 
 /**
  * vertices position
  **/
 Cube.vertices = [
-    0,0,0,
-    0.5,0,0,
-    0.5,0.5,0,
+    -0.5, -0.5, -0.5,
+     0.5, -0.5, -0.5,
+     0.5,  0.5, -0.5,
+    -0.5,  0.5, -0.5,
+
+    -0.5, -0.5, 0.5,
+     0.5, -0.5, 0.5,
+     0.5,  0.5, 0.5,
+    -0.5,  0.5, 0.5,
 ];
 
 /**
@@ -58,5 +72,16 @@ Cube.vertices = [
 Cube.vertexIndexes = [
     0,1,
     1,2,
-    2,0,
+    2,3,
+    3,0,
+
+    0,4,
+    1,5,
+    2,6,
+    3,7,
+
+    4,5,
+    5,6,
+    6,7,
+    7,4,
 ];
