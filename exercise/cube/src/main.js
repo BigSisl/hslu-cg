@@ -51,6 +51,29 @@ function initGL() {
     setUpBuffers();
     setupWorldCoordinates();
     gl.clearColor(0.1, 0.1, 0.1, 1);
+    startLoop();
+}
+
+function startLoop() {
+    loop(getUpdateFunction());
+}
+
+function loop(func) {
+    window.requestAnimationFrame((timeStamp) => {
+        func(timeStamp),
+        loop(func);
+    });
+}
+
+function getUpdateFunction() {
+    return (function() {
+        let lasttime = 0;
+        return function(timeStamp) {
+            let deltaTime = timeStamp - lasttime;
+            lasttime = timeStamp;
+            update(deltaTime, lasttime);
+        }
+    })();
 }
 
 /**
@@ -67,8 +90,8 @@ function setUpAttributesAndUniforms(){
 
 function setupWorldCoordinates() {
     var projectionMatrix = mat4.create();
-    //setupPerspectiveProjection(projectionMatrix);
-    setupOrthogonalProjection(projectionMatrix);
+    setupPerspectiveProjection(projectionMatrix, 100);
+    //setupOrthogonalProjection(projectionMatrix);
     gl.uniformMatrix4fv(ctx.uProjectionMatrix, false, projectionMatrix);
     gl.uniformMatrix4fv(ctx.uModelMat, false, mat4.create());
 
@@ -96,14 +119,20 @@ function setupOrthogonalProjection(projectionMatrix) {
 }
 
 /** @param { mat4 } projectionMatrix */
-function setupPerspectiveProjection(projectionMatrix) {
-    mat4.frustum(
-        projectionMatrix,
-        -gl.drawingBufferWidth/100.0/2.0,
-        gl.drawingBufferWidth/100.0/2.0,
-        -gl.drawingBufferHeight/100.0/2.0,
-        gl.drawingBufferHeight/100.0/2.0,
-        5, 100);
+/** @param { number? } [deg] */
+function setupPerspectiveProjection(projectionMatrix, deg) {
+    if(deg == null) {
+        mat4.frustum(
+            projectionMatrix,
+            -gl.drawingBufferWidth/100.0/2.0,
+            gl.drawingBufferWidth/100.0/2.0,
+            -gl.drawingBufferHeight/100.0/2.0,
+            gl.drawingBufferHeight/100.0/2.0,
+            5, 400);
+    } else {
+        let aspect = gl.drawingBufferWidth/gl.drawingBufferHeight;
+        mat4.perspective(projectionMatrix, deg * Math.PI / 180, aspect, 1, 400);
+    }
 }
 
 /**
@@ -126,14 +155,18 @@ function setUpBuffers(){
 function draw() {
     "use strict";
     console.log("Drawing");
-
-    let cube = new Cube();
-
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     cube.draw(gl, ctx.aVertexPositionId, ctx.uModelMat, ctx.uColorId);
 }
 
-function update() {
+let cube = new Cube();
 
+/**
+ * @param { number } lastTime
+ * @param { number } deltaTime
+ **/
+function update(deltaTime, lastTime) {
+    mat4.rotateY(cube.modelMat, cube.modelMat, 0.001 * deltaTime);
+    draw();
 }
