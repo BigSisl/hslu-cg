@@ -1,0 +1,66 @@
+\documentclass[a4paper,10pt,smallheadings,twocolumn]{scrartcl}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{verbatimbox}
+\usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[top=2cm,right=2cm,bottom=3cm,left=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage[lastpage,user]{zref}
+\usepackage{multirow}
+\usepackage{mathrsfs}
+
+\newcommand{\Title}{Computer Graphics}
+\newcommand{\Author}{Lucien Zürcher}
+\newcommand{\Date}{\today}
+
+\newcommand{\norm}[1]{\lvert\lvert #1 \rvert\rvert}
+
+\title{\vspace{-1cm}\Title\vspace{-1cm}}
+\date{\Date}
+\author{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\Title}
+\fancyhead[R]{\Author}
+\fancyfoot[L]{IMATH}
+\fancyfoot[C]{\Date}
+\fancyfoot[R]{Page \thepage\ of \zpageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\setlength{\columnsep}{1cm}
+\setlength{\parindent}{0cm}
+
+\newenvironment{tightenumerate}{
+\begin{enumerate}
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+}{\end{enumerate}}
+
+\newenvironment{tighitemize}{
+\begin{itemize}
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\renewcommand\labelitemi{-}
+}{\end{itemize}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+\tableofcontents
+\clearpage
+
+\input{./sw/03-a-projective-geometry-I.tex}
+\input{./sw/03-b-projective-geometry-II.tex}
+\input{./sw/04-a-projective-geometry-III.tex}
+\input{./sw/09-a-curves.tex}
+ 
+\input{./appendix/radians-table.tex}
+
+\end{document}
