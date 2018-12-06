@@ -177,18 +177,11 @@ function draw() {
         scene.nearPlane, scene.farPlane);
     //mat4.ortho(projectionMatrix, -2.0, 2.0, -2.0, 2.0, scene.nearPlane, scene.farPlane);
 
-
     // enable the texture mapping
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, textures.textureObject0);
     gl.uniform1i(ctx.uSamplerId, 0);
     gl.uniformMatrix3fv(ctx.uTextureMatrixId, false, textureMatrix);
-
-    // tell the fragment shader to use the texture
-    gl.uniform1i(ctx.uEnableTextureId, 1);
-
-    gl.uniformMatrix3fv(ctx.uTextureMatrixId, false, textureMatrix);
-
 
     // set the light
     gl.uniform1i(ctx.uEnableLightingId, 1);
@@ -204,8 +197,12 @@ function draw() {
     gl.uniformMatrix4fv(ctx.uModelViewMatrixId, false, modelViewMatrix);
     mat3.normalFromMat4(normalMatrix, modelViewMatrix);
     gl.uniformMatrix3fv(ctx.uNormalMatrixId, false, normalMatrix);
+
+    // tell the fragment shader to use the texture
+    gl.uniform1i(ctx.uEnableTextureId, 1);
     //drawingObjects.wiredCube.draw(gl, ctx.aVertexPositionId, ctx.aVertexColorId);
-    drawingObjects.solidCube.draw(gl, ctx.aVertexPositionId, ctx.aVertexColorId, ctx.aVertexNormalId);
+    drawingObjects.solidCube.draw(gl, ctx.aVertexPositionId, ctx.aVertexColorId, ctx.aVertexNormalId, ctx.aVertexTextureCoordId);
+    gl.uniform1i(ctx.uEnableTextureId, 0);
 
 
     // translate and rotate objects
@@ -214,7 +211,7 @@ function draw() {
     gl.uniformMatrix4fv(ctx.uModelViewMatrixId, false, modelViewMatrix);
     mat3.normalFromMat4(normalMatrix, modelViewMatrix);
     gl.uniformMatrix3fv(ctx.uNormalMatrixId, false, normalMatrix);
-    drawingObjects.solidCube.draw(gl, ctx.aVertexPositionId, ctx.aVertexColorId, ctx.aVertexNormalId);
+    drawingObjects.solidCube.draw(gl, ctx.aVertexPositionId, ctx.aVertexColorId, ctx.aVertexNormalId, ctx.aVertexTextureCoordId);
 
     // draw sphere
     mat4.translate(modelViewMatrix, viewMatrix, [0.0, 0.0, -1.0]);
