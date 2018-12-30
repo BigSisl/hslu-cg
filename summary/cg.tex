@@ -15,13 +15,13 @@
 \usepackage{graphicx}
 \usepackage{array}
 
-\newcommand{\Title}{Computer Graphics}
+\newcommand{\Title}{Computer Graphics Zusammenfassung}
 \newcommand{\Author}{Lucien Zürcher}
 \newcommand{\Date}{\today}
 
 \newcommand{\norm}[1]{\lvert\lvert #1 \rvert\rvert}
 
-\title{\vspace{-1cm}\Title\vspace{-1cm}}
+\title{\vspace{-1cm}\Title\vspace{0cm}}
 \date{\Date}
 \author{Lucien Zürcher}
 
@@ -32,7 +32,7 @@
 \fancyhf{}
 \fancyhead[L]{\Title}
 \fancyhead[R]{\Author}
-\fancyfoot[L]{IMATH}
+\fancyfoot[L]{CG}
 \fancyfoot[C]{\Date}
 \fancyfoot[R]{Page \thepage\ of \zpageref{LastPage}}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -61,11 +61,18 @@
 \tableofcontents
 \clearpage
 
+\input{sw/01-a-color.tex}
+\input{sw/01-b-webgl.tex}
+\input{sw/02-a-printing.tex}
+
+\newpage
+\newpage
+
 \input{./sw/03-a-projective-geometry-I.tex}
 \input{./sw/03-b-projective-geometry-II.tex}
 \input{./sw/04-a-projective-geometry-III.tex}
 \input{./sw/09-a-curves.tex}
- 
+
 \input{./appendix/radians-table.tex}
 
 \end{document}
