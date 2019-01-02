@@ -3,13 +3,59 @@
 \textit{$\bullet$ Skalarprodukt} \\
 \textit{$\cdot$ Matrixprodukt}
 
+\subsection{Addition}
+
+$\vec{a} + \vec{b} = \begin{bmatrix}
+    a_1 \\
+    a_2 \\
+    a_n \\
+\end{bmatrix} + \begin{bmatrix}
+    b_1 \\
+    b_2 \\
+    b_n \\
+\end{bmatrix} = \begin{bmatrix}
+    a_1 + b_1 \\
+    a_2 + b_2 \\
+    a_n + b_n \\
+\end{bmatrix}$
+
+\subsection{Multiplikation mit Skalar}
+
+$\lambda \vec{a} = \lambda\begin{bmatrix}
+    a_1 \\
+    a_2 \\
+    a_n \\
+\end{bmatrix} = \begin{bmatrix}
+    \lambda a_1 \\
+    \lambda a_2 \\
+    \lambda a_n \\
+\end{bmatrix}$ \\
+
+\textit{$\lambda \in$ Skalar}
+
+\subsection{Skalarprodukt}
+
+$\vec{a} \bullet \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \cos \pi$
+
+\subsection{Orthogonal}
+
+$\vec{e}_x \bullet \vec{e}_y = 0$
+
+\textit{
+    Senkrecht zueinander, wenn Skalarprodukt zweier Einheitsvektoren 0 ergibt.
+}
+
 \subsection{Länge des Vektors}
 $ \norm{v} = \sqrt{v \cdot v} $
 
 \subsection{Einheitsvektor}
 
 $ e_v = \frac{1}{\norm{v}} \bullet v $ \\
-$ ( i = e_1, j = e_2, k = e_3 ) $
+$ ( i = e_1, j = e_2, k = e_3 ) $ \\
+
+\textit{$\vec{e}_x = [1,0,0]^T$}\\
+\textit{$\vec{e}_y = [0,1,0]^T$}\\
+\textit{$\vec{e}_z = [0,0,1]^T$}
 
 \subsection{Euklidische Distanz}
 
@@ -25,3 +71,18 @@ HNF = $\frac{}{}$
 \subsection{Hessische Normalform}
 
 TODO
+
+\subsection{Begriffe}
+
+\begin{tabular}{r|l}
+    \textbf{Ortsvektor}         & Vom Ursprung zum Punkt \\
+    \textbf{Richtungsvektor}    & Eine Richtung im Raum \\
+    \textbf{Einheitsvektor}     & Eine Einheit in eine beliebige Richtung \\
+    \textbf{Linearkombination}  & Ein Vektor, der ein vielfaches \\
+                                & eines Einheitvektors ist \\
+    \textbf{Skalar}             & Ist ein reelle oder komplexe Zahl \\
+    \textbf{Rechtssystem}       & Koordinatensystem aufgebaut wie die \\
+                                & rechte Hand wobei; der Zeigfinger \\
+                                & X-Achse ($\vec{e}_x$), Mittelfinger Y-Achse ($\vec{e}_y$) \\
+                                & und Daumen Z-Achse ($\vec{e}_z$)
+\end{tabular}
