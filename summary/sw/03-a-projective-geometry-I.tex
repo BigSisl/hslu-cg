@@ -63,23 +63,6 @@ $\vec{a} = \begin{bmatrix}
 
 \textit{Vektoren sind gleich, wenn Komponenten gleich}
 
-\subsection{Vektor Rechenregeln}
-
-\begin{tabular}{r|l}
-    $\vec{a} + \vec{b} = \vec{b} + \vec{a}$ & Kommutativgesetz \\
-    $\vec{a} + (\vec{b} + \vec{c}) = (\vec{a} + \vec{b}) + \vec{c}$ & Assoziativgesetz \\
-    $\vec{a} + \vec{0} = \vec{a}$ & Existenz Neutralelement $\vec{0}$ \\
-    $\vec{a} + (-\vec{a}) = \vec{0}$ & Existenz Inverses -$\vec{a}$ \\
-    $\lambda(\vec{a} + \vec{b}) = \lambda \vec{a} + \lambda \vec{b}$ \\
-    $(\lambda + \mu) \vec{a} = \lambda \vec{a} + \mu \vec{a}$ \\
-    $(\lambda \mu) \vec{a} = \lambda(\mu \vec{a}) = \mu (\lambda \vec{a})$ \\
-    $1 \vec{a} = \begin{bmatrix}
-        1 \\
-        1
-    \end{bmatrix} \vec{a} = \vec{a}$
-
-\end{tabular}
-
 \subsection{Skalarprodukt}
 
 $\vec{a} \bullet \vec{b} = \begin{bmatrix}
@@ -121,16 +104,10 @@ $\vec{a} \bullet \vec{b} = [a_1 a_2 a_3]\begin{bmatrix}
 
 \textit{Matrix $\mathbf{G}$ wird \textbf{metrisch Tensor} genannt}
 
-\subsection{Rechenregel Skalarprodukt}
-
-$\vec{a} \bullet \vec{b} = \vec{b} \bullet \vec{a}$ \\
-$\vec{a} \bullet (\vec{b} + \vec{c}) = \vec{a} \bullet \vec{b} + \vec{a} \bullet \vec{c}$ \\
-$\lambda (\vec{a} \bullet \vec{b}) = (\lambda \vec{a}) \bullet \vec{b} = \vec{a} \bullet (\lambda \vec{b})$
-
 \subsection{Orthogonal}
 
 $\vec{e}_x \bullet \vec{e}_y = 0$ \\
-$\vec{a} \bullet \vec{b} = 0 \Leftrightarrow \vec{a} \vdash \vec{b}$
+$\vec{a} \bullet \vec{b} = 0 \Leftrightarrow \vec{a} \bot \vec{b}$
 
 \textit{
     Senkrecht zueinander, wenn Skalarprodukt zweier Einheitsvektoren 0 ergibt.
@@ -180,8 +157,8 @@ $\bar{AB} = \sqrt{(b_1-a_1)^2 + (b_2 - a_2)^2 + \dots + (b_n - a_n)^2}$
     \multirow{10}{*}{
         \includegraphics[width=0.2\textwidth]{assets/hessischenormalform.png}
     }
-     & $\mathbf{\vec{n} \bullet (\vec{x} - \vec{x}_0) = 0}$ \\
-     & da $\vec{n} \vdash (\vec{x} - \vec{x}_0)$ \\
+     & $\vec{n} \bullet (\vec{x} - \vec{x}_0) = 0$ \\
+     & da $\vec{n} \bot (\vec{x} - \vec{x}_0)$ \\
      & $\Rightarrow n_x(x - x_0) + n_y(y - y_0) = $\\
      & $n_x x + n_y y - (n_x x_0 + n_y y_0)$\\
      & \\
@@ -191,7 +168,6 @@ $\bar{AB} = \sqrt{(b_1-a_1)^2 + (b_2 - a_2)^2 + \dots + (b_n - a_n)^2}$
      & \textit{$\vec{n}$ muss normalisiert sein:} \\
      & $|\vec{n}| = 1 \Rightarrow \frac{1}{\sqrt{n_x^2 + n_y^2}} \bullet \vec{n}$ \\
 \end{tabular} \\
-
 
 \begin{tabular}{cl}
     \multirow{10}{*}{
@@ -265,13 +241,153 @@ $D = - \frac{d}{\sqrt{a^2 + b^2 + c^2}}$
 
 \subsection{Vektorprodukt}
 
+\begin{tabular}{cl}
+    \multirow{7}{*}{
+        \includegraphics[width=0.15\textwidth]{assets/vectorproduct.png}
+    }
+    & $\vec{a} \times \vec{b}$ steht senkrecht auf beiden Vektoren \\
+    & \\
+    & $\vec{a}$, $\vec{b}$ und $\vec{a} \times \vec{b}$ sind ein Rechstsystem \\
+    & \\
+    & $\vec{a} \times \vec{b}$ entspricht der Fläche des \\
+    & aufgespannten Parallelogramms ($A$): \\
+\end{tabular} \\
+
+$A = \sqrt{(a_2 b_3 - a_3 b_2)^2 + (a_3 b_1 - a_1 b_3)^2 + (a_1 b_2 - a_2 b_1)^2}$ \\
+
+\begin{tabular}{cl}
+    \multirow{4}{*}{
+        \includegraphics[width=0.15\textwidth]{assets/vectorproduct-build.png}
+    }
+    & $\vec{a} \times \vec{b} = \begin{bmatrix}
+            \vec{e}_1 & \vec{e}_2 & \vec{e}_3 \\
+            a_1 & a_2 & a_3 \\
+            b_1 & b_2 & b_3 \\
+        \end{bmatrix} = \begin{bmatrix}
+            a_2 b_3 - a_3 b_2 \\
+            a_3 b_1 - a_1 b_3 \\
+            a_1 b_2 - a_2 b_1 \\
+        \end{bmatrix}$ \\
+    & $= (a_2 b_3 - a_3 b_2) \vec{e}_1 +$ \\
+    & $(a_3 b_1 - a_1 b_3) \vec{e}_2 + (a_1 b_2 - a_2 b_1) \vec{e}_3 $ \\
+\end{tabular} \\
+\textit{Regel von Sarrus} \\
+
+\subsection{Vektorprodukt Anwendung}
+
+\begin{itemize}
+    \item \textbf{Lorentz-Karft} $\vec{F} = q(\vec{v} \times \vec{B})$ \\
+          $\vec{v}$: Geschwindigkeit, $B$: Magnetfeld, $q$: Landung
+    \item \textbf{Geschwindigkeit} $\vec{v} = q(\vec{w} \times \vec{x})$ \\
+          $\vec{x}$: Punkt, $w$: Winkelgeschwindigkeit, $\vec{w}$: Drehachse
+    \item \textbf{Drehmoment} $\vec{M} = \vec{r} \times \vec{F}$ \\
+          $\vec{F}$: Kraft, $\vec{r}$: Punkt / Koordinatenursprung
+    \item \textbf{Normalvektor} $\vec{n} = \vec{a} \times \vec{b}$ \\
+          $\vec{a}$ und $\vec{b}$ liegen auf der Ebene.
+    \item \textbf{Kollinearität} kollinear (d.h. linear abhängig) wenn Vektorprodukt verschwinded
+\end{itemize}
+
 \subsection{Spatprodukt}
+
+\begin{tabular}{cl}
+    \multirow{6}{*}{
+        \includegraphics[width=0.12\textwidth]{assets/spatproduct.png}
+    }
+    & \textbf{Spatprodukt} $[\vec{a}, \vec{b}, \vec{c}]$ \\
+    & \textit{Ist der Skalar der Vektoren $\vec{a}$, $\vec{b}$, $\vec{c}$} \\
+    & \\
+    & $[\vec{a}, \vec{b}, \vec{c}] = \vec{a} \bullet (\vec{b} \times \vec{c})$\\
+    & \textit{Spatprodukt entsprich Volumen wenn in} \\
+    & \textit{einem Rechstsystem, dann: $V_{Spat} = |[\vec{a}, \vec{b}, \vec{c}]|$} \\
+\end{tabular} \\
+
+$|[\vec{a}, \vec{b}, \vec{c}]| = $ \\
+$a_1 b_2 c_3 + a_2 b_3 c_1 + a_3 b_1 c_2 - a_3 b_2 c_1 - a_1 b_3 c_2 - a_2 b_1 c_3$
+\textit{Komplanar (linear abhängig) wenn $[\vec{a}, \vec{b}, \vec{c}] = 0$}
 
 \subsection{Translation 2D}
 
+$\vec{x}' = \vec{x} + \vec{t} = \begin{bmatrix}
+    x_1 \\
+    x_2 \\
+\end{bmatrix} + \begin{bmatrix}
+    t_1 \\
+    t_2 \\
+\end{bmatrix} = \begin{bmatrix}
+    x_1 + t_1 \\
+    x_2 + t_2 \\
+\end{bmatrix}$
+
 \subsection{Skalierung 2D}
 
+$\vec{x}' = \begin{bmatrix}
+    \vec{s}_x x \\
+    \vec{s}_y y \\
+\end{bmatrix} = \begin{bmatrix}
+    s_x & 0 \\
+    0 & s_y \\
+\end{bmatrix} \begin{bmatrix}
+    x \\
+    y \\
+\end{bmatrix}$
+
 \subsection{Rotation 2D}
+
+$\vec{x}' = \begin{bmatrix}
+    x' \\
+    y' \\
+\end{bmatrix} = \begin{bmatrix}
+    \cos(\phi) & -\sin(\phi) \\
+    \sin(\phi) & \cos(\phi) \\
+\end{bmatrix} \begin{bmatrix}
+    x \\
+    y \\
+\end{bmatrix} = \mathbf{R}\vec{x}$
+
+\textit{Inverse Matrix: $\mathbf{R}^{-1} = \mathbf{R}^T$}
+
+\subsection{Vektor Rechenregeln}
+
+\begin{tabular}{r|l}
+    $\vec{a} + \vec{b} = \vec{b} + \vec{a}$ & Kommutativgesetz \\
+    $\vec{a} + (\vec{b} + \vec{c}) = (\vec{a} + \vec{b}) + \vec{c}$ & Assoziativgesetz \\
+    $\vec{a} + \vec{0} = \vec{a}$ & Existenz Neutralelement $\vec{0}$ \\
+    $\vec{a} + (-\vec{a}) = \vec{0}$ & Existenz Inverses -$\vec{a}$ \\
+    $\lambda(\vec{a} + \vec{b}) = \lambda \vec{a} + \lambda \vec{b}$ \\
+    $(\lambda + \mu) \vec{a} = \lambda \vec{a} + \mu \vec{a}$ \\
+    $(\lambda \mu) \vec{a} = \lambda(\mu \vec{a}) = \mu (\lambda \vec{a})$ \\
+    $1 \vec{a} = \begin{bmatrix}
+        1 \\
+        1
+    \end{bmatrix} \vec{a} = \vec{a}$
+
+\end{tabular}
+
+\subsection{Rechenregel Skalarprodukt}
+
+$\vec{a} \bullet \vec{b} = \vec{b} \bullet \vec{a}$ \\
+$\vec{a} \bullet (\vec{b} + \vec{c}) = \vec{a} \bullet \vec{b} + \vec{a} \bullet \vec{c}$ \\
+$\lambda (\vec{a} \bullet \vec{b}) = (\lambda \vec{a}) \bullet \vec{b} = \vec{a} \bullet (\lambda \vec{b})$
+
+\subsection{Vektorprodukt Rechenregeln}
+
+\begin{tabular}{r|l}
+    $\vec{a} \times \vec{b} = -\vec{b} \times \vec{a}$ & Anti-Kommutativgesetz \\
+    $\vec{a} \times (\vec{b} + \vec{c}) = \vec{a} \times \vec{b} + \vec{a} \times \vec{c}$ & Distributivgesetz \\
+    $\lambda (\vec{a} \times \vec{b}) = (\lambda \vec{a}) \times \vec{b} = \vec{a} \times (\lambda \vec{b})$
+\end{tabular}
+
+\subsection{Spatprodukt Rechenregeln}
+
+\begin{tabular}{r|l}
+    $[\vec{a}, \vec{b}, \vec{c}] = -[\vec{b}, \vec{a}, \vec{c}]$ & zwei Vekoren vertauschen \\
+                                                                 & entspricht Vorzeichenwechsel \\
+    $[\vec{a}, \vec{b}, \vec{c}] = [\vec{c}, \vec{a}, \vec{b}] $ & Zyklisches Vertauschen \\
+                                                                 & keine Änderung \\
+    $[\lambda \vec{a}, \mu \vec{b}, \nu \vec{c}] = \lambda\mu\nu[\vec{a}, \vec{b}, \vec{c}]$ & Multiplikation \\
+    $[\vec{a} + \vec{b}, \vec{c}, \vec{d}] = $ & Addition \\
+    $[\vec{a}, \vec{c}, \vec{d}] + [\vec{b}, \vec{c}, \vec{d}]$ & \\
+\end{tabular}
 
 \subsection{Begriffe}
 
