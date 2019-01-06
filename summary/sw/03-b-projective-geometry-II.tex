@@ -1,4 +1,88 @@
+\section{Projektive Geometrie}
 
+\subsection{Homogener Vektor}
+
+$\vec{r} = \begin{bmatrix}
+    x_1 \\
+    x_2 \\
+    x_3 \\
+\end{bmatrix}$
+\textit{Homogener 2D Vektor} \\
+
+$(x,y) = (\frac{x_1}{x_3}, \frac{x_2}{x_3})$
+
+\subsection{Punkt auf Gerade}
+
+$ax + by + c = 0 \Leftrightarrow \vec{g} \bullet \vec{r} = 0$
+
+$\vec{r} = \begin{bmatrix}
+    x \\ y \\ 1
+\end{bmatrix}$,
+$\vec{g} = \begin{bmatrix}
+    a \\ b \\ c
+\end{bmatrix}$
+
+\textit{$A(x,y)$ (homogenisiert $\vec{r}$) liegt dann auf gerade $\vec{g}$}
+
+\subsection{Schnittpunkt Geraden}
+
+$\vec{r} = \vec{g}_1 \times \vec{g}_2$
+
+$\vec{g}_1 = \begin{bmatrix}
+    a_1 \\ b_1 \\ c_1
+\end{bmatrix}$,
+$\vec{g}_2 =  \begin{bmatrix}
+    a_2 \\ b_2 \\ c_2
+\end{bmatrix}$
+
+\textit{$\vec{r}$ ist der homogene Schnittpunkt $[x_1,x_2,x_3]$} \\
+\textit{
+    $x_3 = 0$, dann sind die Geraden parallel, und
+    kein Schnittpunkt möglich (division durch 0)
+}
+
+\subsection{Parallele Geraden}
+
+$\vec{r} = \vec{g}_1 \times \vec{g}_2 = (c_1 + c_2)\begin{bmatrix}
+    b_1 \\ -a_1 \\ 0
+\end{bmatrix}$
+
+\textit{$(a_1, b_1) = (a_2, b_2)$, dann sind die Geraden parallel}
+
+\subsection{Unendlicher homogener Vektor}
+
+$\vec{r} = \begin{bmatrix}
+    x \\ y \\ 0
+\end{bmatrix}$, $\vec{g}_\infty = \begin{bmatrix}
+    0 \\ 0 \\ c
+\end{bmatrix}$
+
+\textit{alle idealen, uneigentlichen oder unendlich fernen Punkte $\vec{r}$ liegen auf der Gerade $\vec{g}_\infty$}
+
+$\vec{g}_\infty \bullet \vec{r} = \vec{g}_\infty = \begin{bmatrix}
+    0 \\ 0 \\ c
+\end{bmatrix} \bullet \begin{bmatrix}
+    x \\ y \\ 0
+\end{bmatrix} = 0$
+
+\subsection{Projektive Ebene (homogener Vektor)}
+
+\begin{tabular}{cl}
+    \multirow{9}{*}{
+        \includegraphics[width=0.24\textwidth]{assets/euclidean-plane.png}
+    }
+    & \textit{Ein Punkt auf der euklid-} \\
+    & \textit{ischen Ebene entspricht} \\
+    & \textit{dem Wert eines dehomogen-} \\
+    & \textit{isierten Punktes $(x,y)$.} \\
+    & \\
+    & \textit{$x_3 = 1$ ergibt die} \\
+    & \textit{euklidische Ebene.} \\
+    & \\
+    & \textit{$\lambda(x_1, x_2, x_3)$ sind Punkte} \\
+    & \textit{auf einer Gerade die den Punkt} \\
+    & \textit{$(\frac{x_1 \lambda}{x_3 \lambda}, \frac{x_2 \lambda}{x_3 \lambda}) = (x,y)$ definieren.} \\
+\end{tabular} \\
 
 \subsection{Projektive Transformation}
 
