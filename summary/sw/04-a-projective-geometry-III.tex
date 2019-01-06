@@ -1,9 +1,5 @@
 \section{Transformation}
 
-\subsection{Transformation des Koordinatenystems}
-
-TODO
-
 \subsection{homogene Koordinaten}
 
 \textit{jeder Punkt P(x,y,z) des Raumes $\mathbb{R^3}$ besitzt eine 4-komponenten Vektor $\vec{r}$}
@@ -13,9 +9,9 @@ $\vec{r} = \begin{bmatrix}
     x_2 \\
     x_3 \\
     x_4
-\end{bmatrix}$, 
-$x = \frac{x_1}{x_4}$, 
-$y = \frac{x_2}{x_4}$, 
+\end{bmatrix}$,
+$x = \frac{x_1}{x_4}$,
+$y = \frac{x_2}{x_4}$,
 $z = \frac{x_3}{x_4}$ \\
 
 $(x,y,z) = (\frac{x_1}{x_4}, \frac{x_2}{x_4}, \frac{x_3}{x_4})$
@@ -60,8 +56,20 @@ $\eta(r) = \mathbf{H} \cdot r = \begin{bmatrix}
     x_1 \\
     x_2 \\
     x_3 \\
-    x_4 
+    x_4
 \end{bmatrix}$
+
+\subsection{Transformationen}
+
+$t=\begin{bmatrix}
+    x \\
+    y \\
+    z \\
+\end{bmatrix}$, $0^T = \begin{bmatrix}
+    0 \\
+    0 \\
+    0 \\
+\end{bmatrix}$, $\mathbf{RMC} =$ 3x3 Matrix
 
 \textbf{Euklidisch} (starre Bewegung) \\
 $D = \begin{bmatrix}
@@ -112,7 +120,7 @@ TODO Translation, Spiegelung an einer Ebene, Rotation, Zusammensetzen von
     $\mathbf{D} = \begin{bmatrix}
         c_\phi & s_\phi & 0 \\
         -s_\phi & c_\phi & 0 \\
-        0 & 0 & 1 
+        0 & 0 & 1
     \end{bmatrix}$ \\
 \end{tabular} \\
 \begin{tabular}{m{3cm}CC}
@@ -209,7 +217,7 @@ $\begin{bmatrix}
 \end{bmatrix} = \begin{bmatrix}
     \lambda x_0 \\
     \lambda y_0 \\
-    \lambda z_0 
+    \lambda z_0
 \end{bmatrix}$ \\
 
 $\lambda = - \frac{d}{ax_0 + by_0 + cz_0}$ \\
