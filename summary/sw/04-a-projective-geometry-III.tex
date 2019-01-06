@@ -2,7 +2,7 @@
 
 \subsection{homogene Koordinaten}
 
-\textit{jeder Punkt P(x,y,z) des Raumes $\mathbb{R^3}$ besitzt eine 4-komponenten Vektor $\vec{r}$}
+\textit{jeder Punkt P(x,y,z) des Raumes $\mathbb{R}^3$ besitzt eine 4-komponenten Vektor $\vec{r}$}
 \\
 $\vec{r} = \begin{bmatrix}
     x_1 \\
@@ -102,6 +102,48 @@ $\mathbf{H} = \begin{bmatrix}
 \end{bmatrix}$ \\
 \textit{Geraden bleiben Geraden} \\
 
+\subsection{Translation}
+
+$\mathbf{T}(\vec{t}) = \left[\begin{array}{ccc|c}
+    1 & 0 & 0 & t_x \\
+    0 & 1 & 0 & t_y \\
+    0 & 1 & 0 & t_z \\
+    \hline
+    0 & 0 & 0 & 1 \\
+\end{array}\right]$
+
+\subsection{Rotation}
+
+$\mathbf{R}_z = \left[\begin{array}{ccc|c}
+    \cos(\Phi_z) & -\sin(\Phi_z) & 0 & 0 \\
+    \sin(\Phi_z) & \cos(\Phi_z) & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    \hline
+    0 & 0 & 0 & 1 \\
+\end{array}\right]$
+
+$\mathbf{R}_y = \left[\begin{array}{ccc|c}
+    \cos(\Phi_y) & 0 & \sin(\Phi_y) & 0 \\
+    0 & 1 & 0 & 0 \\
+    -\sin(\Phi_y) & 1 & \cos(\Phi_y) & 0 \\
+    \hline
+    0 & 0 & 0 & 1 \\
+\end{array}\right]$
+
+$\mathbf{R}_z = \left[\begin{array}{ccc|c}
+    1 & 0 & 0 & 0 \\
+    0 & \cos(\Phi_x) & -\sin(\Phi_x) & 0 \\
+    0 & \sin(\Phi_x) & \cos(\Phi_x) & 0 \\
+    \hline
+    0 & 0 & 0 & 1 \\
+\end{array}\right]$
+
+\textit{Bei Rotation um selbe Achse gilt Kommutativgesetz
+($\mathbf{R}_z(\Phi_{z,1} + \Phi_{z,2}) = \mathbf{R}_z(\Phi_{z,1}) \mathbf{R}_z(\Phi_{z,2}) = \mathbf{R}_z(\Phi_{z,2}) \mathbf{R}_z(\Phi_{z,1})$)}
+
+\textit{Inverse entspricht $\mathbf{R}^{-1}(\Phi) = \mathbf{R}(-\Phi)$,
+wobei $\cos(-\Phi) = \cos(\Phi)$}
+
 \subsection{Euklidische Transformationen}
 
 TODO Translation, Spiegelung an einer Ebene, Rotation, Zusammensetzen von
@@ -110,7 +152,7 @@ TODO Translation, Spiegelung an einer Ebene, Rotation, Zusammensetzen von
 
 1) Rotation um $\phi$ um z-Achse (Matrix D) \\
 2) Rotation um den Winkel $\theta \in [0, \pi]$ (um frühere X-Achse) (Matrix C)  \\
-3) Eigentlich Rotation um den gegeben Winkel $\psi$ (Matrix B) \\
+3) Rotation um den gegeben Winkel $\psi$ (Matrix B) \\
 
 \textit{$c_\alpha = \cos \alpha$, $s_\alpha = \cos \alpha$, $\alpha \in {\phi, \theta, \psi}$} \\
 
@@ -125,7 +167,7 @@ TODO Translation, Spiegelung an einer Ebene, Rotation, Zusammensetzen von
 \end{tabular} \\
 \begin{tabular}{m{3cm}CC}
     \includegraphics[scale=0.3]{rotation_matrix_C} &
-    $\mathbf{D} = \begin{bmatrix}
+    $\mathbf{C} = \begin{bmatrix}
         1 & 0 & 0 \\
         0 & c_\theta & s_\theta \\
         0 & -s_\theta & c_\theta
@@ -133,50 +175,64 @@ TODO Translation, Spiegelung an einer Ebene, Rotation, Zusammensetzen von
 \end{tabular} \\
 \begin{tabular}{m{3cm}CC}
     \includegraphics[scale=0.3]{rotation_matrix_B} &
-    $\mathbf{D} = \begin{bmatrix}
+    $\mathbf{B} = \begin{bmatrix}
         c_\psi & s_\psi & 0 \\
         -s_\psi & c_\psi & 0 \\
         0 & 0 & 1
     \end{bmatrix}$ \\
-\end{tabular}
+\end{tabular} \\
 
-Danach wieder zurück rotieren um $\phi$ und $\theta$
+$\mathbf{M} = \mathbf{D}^{-1}\mathbf{C}^{-1}\mathbf{B}\mathbf{C}\mathbf{D}$
+\textit{\\
+    Bei Rotation um eine Gerade, 1. Transformation $\mathbf{D}$ \& $\mathbf{C}$
+    Matrix (mit Winkel der Gerade), dann eigentliche Transformation mit gegebenem
+    Winkel, dann zurücktransformiere $\mathbf{C}^{-1}$ \& $\mathbf{D}^{-1}$
+}
 
 \subsection{Rotation um eine Achse durch den Ursprung}
 
-TODO insert T / $R_{y,x,z}$ \\
+\textit{Rotation um einen Einheitsvektor $\vec{a} = \begin{bmatrix}
+    a_1 \\
+    a_2 \\
+    a_3 \\
+\end{bmatrix}$}
 
-Todo rotation around any axis \\
-
-Todo altertative, rotation around origin \\
+$\mathbf{Q} = (\cos \theta)I + (1-\cos \theta) \begin{bmatrix}
+    a_1^2 & a_1 a_2 & a_1 a_3 \\
+    a_1 a_2 & a_2^2 & a_2 a_3 \\
+    a_1 a_3 & a_2 a_3 & a_3^2 \\
+\end{bmatrix} -$ $\sin \theta \begin{bmatrix}
+    0 & a_3 & -a_2 \\
+    -a_3 & 0 & a_1 \\
+    a_2 & -a_1 & 0 \\
+\end{bmatrix}$
 
 \subsection{Parallele Projektion}
 
 \textit{Projektion auf Ebene $\epsilon: ax + by + cz + d = 0$} \\
-\textit{Die ebene ist definiert durch Normalvektor $\vec{n} = \begin{bmatrix}
-    a \\
-    b \\
-    c
-\end{bmatrix}$} \\
-\textit{Normalenvektor erhalten: $|\vec{n}| = \sqrt{a^2 + b^2 + c^2} = 1$} \\
+\textit{Die Ebene ist definiert durch Normalvektor $\vec{n} = [a, b, c]^T$ (Ebenen Normalenvektor)} \\
+\textit{Projektionsrichtung definiert durch Normalenvektor $\vec{v} = [v_x, v_y, v_z]^T$ (Projektionsrichtung)} \\
 
-\textit{Projektionsrichtung definiert durch $\vec{v} = (v_x, v_y, v_z)$} \\
-\textit{Normalisieren von Projektionsrichtung: $|\vec{v}|$} \\
-
-\textit{Ist $|\vec{n}|$ (Ebenen Normalenvektor) und $|\vec{v}|$ (Projektionsrichtung) gegeben} \\
+\begin{tabular}{cl}
+    \multirow{8}{*}{
+        \includegraphics[width=0.2\textwidth]{assets/parallel-projection.png}
+    } & $\vec{x} = \vec{x}_0 + t\vec{v} = \vec{x}_0 + t^\star\vec{v}$ \\
+    & \\
+    & $t = \frac{ax_0 + by_0 + cz_0 + d}{av_x + bv_y + cv_z}$\\
+    & \\
+    & $t = t^\star = \frac{ax_0 + by_0 + cz_0 + d}{cos(\psi)}$\\
+    & \\
+    & $av_x + bv_y + cv_z = \vec{v} \bullet \vec{n} =$\\
+    & $|\vec{v}||\vec{n}|\cos(\psi) = \cos(\psi)$ \\
+\end{tabular}
 
 $\vec{x} = \vec{x}_0 + t\vec{v}$, komponentenweise $\begin{bmatrix}
     x = x_0 + tv_x \\
     y = y_0 + tv_y \\
-    y = y_0 + tv_y
+    z = z_0 + tv_z \\
 \end{bmatrix}$ \\
-\textit{Wobei $x_0$ Punkt wo auf $x$ auf Ebene Projeziert wird} \\
-
-\textit{$\psi$ entspricht Winkel zwischen $\vec{n}$ und $\vec{v}$} \\
-
-$cos(\psi) = \vec{v} \bullet \vec{n}$
-
-TODO - gleichung t t* \\
+\textit{Wobei $\vec{x_0}$ Punkt dem projezierten $\vec{x}$ Punkt auf Ebene entspricht.}
+\textit{$\psi$ ist der Winkel zwischen $\vec{n}$ und $\vec{v}$}
 
 \subsection{Parallele Projektionsmatrix}
 
