@@ -14,20 +14,20 @@
 \textit{Zeichnen der Polygone in einer Reihenfolge zuletzt gezeichnete überdecken die ersten Sortierung}
  
 Sortierung:
-\begin{itemize}
-	\item 1. Sortierung nach minmaler x-Koordinate (in Kamera Koordinaten)
-	\item 2. wenn in z-überlagern -> weitere Bedingungen beachten
-	\item 3. Falls keine Bedingung erfüllt -> Polygone vertauschen und nochmals Prüfen
-\end{itemize}
+\begin{enumerate}
+	\item Sortierung nach minmaler x-Koordinate (in Kamera Koordinaten)
+	\item wenn in z-überlagern -> weitere Bedingungen beachten
+	\item Falls keine Bedingung erfüllt -> Polygone vertauschen und nochmals Prüfen
+\end{enumerate}
 
 Bedingungen:
-\begin{itemize}
-	\item 1. Überlagern sich die x-Ausdehnungen nicht? (vollständig nebeneinander)
-	\item 2. Überlagern sich die y-Ausdehnungen nicht? (vollständing hintereinander)
-	\item 3. Wird das hintere Objekt vom Vorderen komplett überdeckt?
-	\item 4. Liegt Q ganz auf der Betrachterseite von P? (Polygon P ist in der Sortierung vor Q)
-	\item 5. Überlappen sich die Polygone nicht auf der Projektion in die xy Ebene?
-\end{itemize}
+\begin{enumerate}
+	\item Überlagern sich die x-Ausdehnungen nicht? (vollständig nebeneinander)
+	\item Überlagern sich die y-Ausdehnungen nicht? (vollständing hintereinander)
+	\item Wird das hintere Objekt vom Vorderen komplett überdeckt?
+	\item Liegt Q ganz auf der Betrachterseite von P? (Polygon P ist in der Sortierung vor Q)
+	\item Überlappen sich die Polygone nicht auf der Projektion in die xy Ebene?
+\end{enumerate}
 
 TODO Beispiel
 
@@ -87,9 +87,9 @@ Eigenschaften:
 \textit{Rekursive Unterteilung des Bildbereichs. Falls "einfach" zu zeichnen -> Zeichnen, sonst unterteilt in 4}
 
 Einfach falls:
-\begin{itemize}
-	\item 1. Der Bereich kein Polygon enthält
-	\item 2. Der Bereich nur ein Polygon enthält
-	\item 3. Der Bereich ein Polygon enthält, das am nächsten liegt und den Bereich vollständig ausfüllt 
-	\item 4. Der Bereich nur aus einem Pixel besteht
-\end{itemize}
+\begin{enumerate}
+	\item Der Bereich kein Polygon enthält
+	\item Der Bereich nur ein Polygon enthält
+	\item Der Bereich ein Polygon enthält, das am nächsten liegt und den Bereich vollständig ausfüllt 
+	\item Der Bereich nur aus einem Pixel besteht
+\end{enumerate}
