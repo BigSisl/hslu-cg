@@ -1,3 +1,19 @@
 \section{Rendering Equation(s)}
 
-\subsection{TODO}
+\subsection{BRDF (Bidirectional Reflectance Distribution Function)}
+
+\begin{itemize}
+	\item Anstatt Diffuse (Gleichmässig) oder Specular (Abnehmend) Reflektion an einem Punkt
+	
+	\item Radiosity: Beleuchtete Fläche als neue Lichtquelle (indirekt)
+	
+	\item Fläche wird in "Patches" unterteilt
+	
+	\item "Patches" mit konstanter Farbe / Lichtintensität
+	
+	\item "Patches" als neue Lichtquelle für andere "Patches"
+	
+	\item Berechnungsvarianten
+	\textit{-> Progressive Radiosity: Berechnung und frühe Darstellung einer approximativen Lösung}
+	\textit{-> Hierarchical Radiosity: Erhöhung der Anzahl Patches wo es notwendig ist}
+\end{itemize}
