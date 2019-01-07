@@ -1,3 +1,95 @@
 \section{Visibilität}
 
-\subsection{TODO}
+\textit{Algorithmen für verdeckte Linien und Flächen}
+
+\subsection{Backface Culling (WebGL)}
+
+\begin{itemize}
+	\item Rückseiten nicht zeichnen
+	\item Test durch Normalvektor (Normalvektor gegen hinten und nicht nach vorne)
+\end{itemize}
+
+\subsection{Tiefensortierung (Painters Algorithms)}
+
+\textit{Zeichnen der Polygone in einer Reihenfolge zuletzt gezeichnete überdecken die ersten Sortierung}
+ 
+Sortierung:
+\begin{itemize}
+	\item 1. Sortierung nach minmaler x-Koordinate (in Kamera Koordinaten)
+	\item 2. wenn in z-überlagern -> weitere Bedingungen beachten
+	\item 3. Falls keine Bedingung erfüllt -> Polygone vertauschen und nochmals Prüfen
+\end{itemize}
+
+Bedingungen:
+\begin{itemize}
+	\item 1. Überlagern sich die x-Ausdehnungen nicht? (vollständig nebeneinander)
+	\item 2. Überlagern sich die y-Ausdehnungen nicht? (vollständing hintereinander)
+	\item 3. Wird das hintere Objekt vom Vorderen komplett überdeckt?
+	\item 4. Liegt Q ganz auf der Betrachterseite von P? (Polygon P ist in der Sortierung vor Q)
+	\item 5. Überlappen sich die Polygone nicht auf der Projektion in die xy Ebene?
+\end{itemize}
+
+TODO Beispiel
+
+Eigenschaften:
+\begin{itemize}
+	\item + auch für transparente Objekte möglich 
+	\item + einfach für Spezialfälle (2.5D)
+	\item - ineffizient für viele Objekte O(n2)
+	\item - nicht Hardware unterstützt
+\end{itemize}
+
+\subsection{z-Buffer (WebGL)}
+\begin{itemize}
+	\item \textit{Pro Pixel Tiefe zusätzlich zur Farbe speichern}
+	\item \textit{Beim Zeichnen prüfen, ob näher liegt}
+\end{itemize}
+
+\begin{lstlisting}
+// Initialisierung
+for y = 0 to YMAX do
+  for x = 0 to XMAX do
+    color[x,y] = Background
+    depth[x,y] = MAXDEPTH 
+  end
+end
+
+
+// Polygone zeichnen 
+for alle Polygone q do
+  for alle pixel p(x,y) in q do
+    z = CalculateDepth(q,x,y); 
+    if z > depth[x,y] then
+      depth[x,y] = z;
+      color[x,y] = Color of q 
+    end
+  end 
+end
+\end{lstlisting}
+
+Berechnung aus Ebenegleichung: \\
+$z = \frac{-D - Ax - By}{C} / C$
+
+Inkrementelle Berechnung entlang einer Scanlinie:\\
+$Zneu = \frac{-D -A(Xalt + 1) - By}{C} = Zalt - \frac{A}{C}$
+
+Eigenschaften:
+\begin{itemize}
+	\item + Hardware unterstützt
+	\item + Polygone können in beliebiger Reihenfolge gezeichnet werden
+	\item + Berechenzeit O(n), häufig konstant ab einer gewissen Anzahl Polygone 
+	\item - Rundungsprobleme
+	\item - Gleiche z-Werte problematisch
+	\item - (grosser Speicherbedarf)
+\end{itemize}
+	
+\subsection{Warnock Algorithmus}
+\textit{Rekursive Unterteilung des Bildbereichs. Falls "einfach" zu zeichnen -> Zeichnen, sonst unterteilt in 4}
+
+Einfach falls:
+\begin{itemize}
+	\item 1. Der Bereich kein Polygon enthält
+	\item 2. Der Bereich nur ein Polygon enthält
+	\item 3. Der Bereich ein Polygon enthält, das am nächsten liegt und den Bereich vollständig ausfüllt 
+	\item 4. Der Bereich nur aus einem Pixel besteht
+\end{itemize}
