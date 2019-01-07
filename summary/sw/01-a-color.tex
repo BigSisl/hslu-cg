@@ -48,14 +48,14 @@
 \subsection{Das Auge}
 
 \textit{
-    Das Auge besteht aus; \textbf{Iris} (Muskel und Lichteinschränken),
-    \textbf{Linse}, \textbf{Pupille} (Kontrolliert Iris) und \textbf{Retina}
+    Das Auge besteht aus; \textbf{Iris} (Kreisring mit radialen Muskel und Lichteinschränken),
+    \textbf{Linse} (Fokussieren), \textbf{Pupille} (Öffnung, durch Iris kontrolliert), \textbf{Photorezeptoren} (Nehmen das Licht wahr) und \textbf{Retina}
     (Farb- und Lichtaufnahme am Rand des Auges)
 } \\
 \\
 \textit{
-    Die Retina besteht aus 75-100 $10^6$ Stäbchen (Lichtintensität) und
-    6-7 $10^6$ Zäpfchen (Farbe). Die Forea ist der dichteste Platz.
+    Die Retina besteht aus 75-100 $10^6$ Stäbchen/rods (Lichtintensität) und
+    6-7 $10^6$ Zäpfchen/cones (Farbe). Die Forea ist der dichteste Platz.
 }
 
 \subsection{Wie sehen wir Farbe?}
@@ -69,6 +69,10 @@
     1        &:& 5          &:& 10 \\
 \end{tabular}
 
+\textit{
+	Weiss ist eine Kombination von Wellenlängen. Es gibt verschiedene Verteilung für Weiss.
+}
+
 \subsection{Wahrnehmung}
 
 \textit{Grün 530mn wird am intensivsten wargenommen}
@@ -80,34 +84,49 @@
 
 \subsection{Farbsysteme}
 
+\textit{
+	Nicht alle existierenden Farben (CIE) sind mit allen System darstellbar!
+}
+
 \begin{itemize}
     \item \textbf{RGB} (Monitor, Spotligths,Pointilismus), \\
           additiv, C = (Rot, Grün, Blau)
+          \includegraphics[width=0.3\textwidth]{assets/rgb_additiv.png}
+          
     \item \textbf{CMY} (Drucken), \\
-          subtraktiv, C = (Cyan, Magenta, Yellow)
+          subtraktiv, C = (Cyan, Magenta, Yellow) \\
+          Komplementärfarbe von RGB \\
+          $(C,M,Y) = (1,1,1) - (R,G,B)$
+          
     \item \textbf{CMYK}, CMY Mit Schwarz erweitert, \\
           K = min(Cyan, Magenta, Yellow) \\
           $C = C - K$, $M = M - K$, $Y = Y - K$
+          
     \item \textbf{HSV}, \
           Farbton (Hue) / \
           Reinheit,Sättigung (Saturation) / \
           Intensität (Value)
-    \item \textbf{YUV} (Alte Fernseher, UV = 1/4 Auflösung Farbkorrektur)\\
+          \includegraphics[width=0.3\textwidth]{assets/hsv_farbsystem.png}
+          
+    \item \textbf{YUV} (Alte Fernseher, Y= Helligkeit, UV = 1/4 Auflösung Farbkorrektur)\\
           Y = $0.229*R+0.587G+0.114*B$, \\
           U = $0.436(B-Y)/(1-0.114)$, \\
           V = $0.615(R-Y)/(1-0.299)$
+          
     \item \textbf{CIE-Lab}, absolutes Farbsystem \\
-          Achsensystem mit Helligkeit als Y-Achse und X/Z-Achse definieren Farbunterschiede
+          Achsensystem mit Helligkeit (L) als Y-Achse und X/Z-Achse definieren Farbunterschiede \\
+          a: rot – grün Achse \\
+          b: gelb – blau Achse
 \end{itemize}
 
 \subsection{Additives Farbsystem}
 
-\textit{Farben additeren}
+\textit{Farben additeren} \\
 \textit{(1,1,1) = Weiss, (0,0,0) = Schwarz}
 
 \subsection{Subtraktives Farbsystem}
 
-\textit{Farben absorbieren}
+\textit{Farben absorbieren / filtern} \\ 
 \textit{(0,0,0) = Weiss, (1,1,1) = Schwarz}
 
 \subsection{Farben Konvertieren}
@@ -121,6 +140,8 @@ $\begin{pmatrix} C \\ M \\ Y \end{pmatrix} =
 
 \textit{HSV <> RGB: }\\
 \includegraphics[width=0.4\textwidth]{assets/hsv-rgb.png}
+\\
+\includegraphics[width=0.25\textwidth]{assets/hsv_hue.png}
 
 \subsection{Gamma Korrektur}
 
@@ -132,9 +153,17 @@ $\begin{pmatrix} C \\ M \\ Y \end{pmatrix} =
 \textit{
     Korrektur der Helligkeit des Bildes mit Gamme Wert. Wichtig für Bildschirme einstellen.
     Beim einstellen der Monitore Grauwerte mit echten Werten vergleichen (Gamma Test Pattern).
+    50\% schwarz und 50\% weiss einer Fläche (z.B. Punkte) sollte gleich sein wie 50\% grau
 }
 
-\subsection{Normfarbtafel}
+\subsection{Normfarbtafel / CIE Farbsystem}
+\begin{itemize}
+	\item kann alle Farben darstellen
+	\item Spektralfarben = Farbe am Rand mit Wellenlänge
+	\item Farben zwischen zweie Farben mischbar
+	\item Komplementärfarben gehen durch Weiss
+	\item Achtung: Keine Spektralfarbe am Rande zwischen UV und Infrarot
+\end{itemize}
 
 \includegraphics[width=0.4\textwidth]{assets/color-cie.png}
 
@@ -145,6 +174,8 @@ $\begin{pmatrix} C \\ M \\ Y \end{pmatrix} =
 $\frac{\Delta I}{I} = C$ \\
 $\log (I + \Delta I) - \log(I) = Const$
 
+\textit{Helligkeitsunterschied im dunkeln nehmen wir stärker wahr}
+ 
 \subsection{Nibs (Lichtdichte)}
 
 \textit{
@@ -156,13 +187,13 @@ $\log (I + \Delta I) - \log(I) = Const$
 
 \textit{
     Optische Illusion, bei zwei verschiedenen Grauwerten nebeneinander
-    unterschieden sich diese vermeitlich stärker.
+    unterschieden sich diese vermeidlich stärker.
 }
 
 \subsection{Farbtäschung}
 
 \textit{
-    Farbe wird abhängig durch Umgebung anderst wargenommen
+    Farbe wird abhängig durch Umgebung anders wahrgenommen
     (Dunkler, Heller). Optische Illusionen
 }
 
@@ -194,5 +225,5 @@ $\log (I + \Delta I) - \log(I) = Const$
                                 & (Bsp. Verschiedenes Weiss) \\
     \textbf{Komplementärfarben} & Addieren ergeben Grau, \\
                                 & gegenüberligende Farben im \\
-                                & CIE-Farbsystem
+                                & CIE-Farbsystem durch Weiss
 \end{tabular}
