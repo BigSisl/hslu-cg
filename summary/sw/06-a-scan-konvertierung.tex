@@ -6,16 +6,18 @@
 
 \begin{itemize}
     \item \textit{Brute Force; über jeden Pixel und runden}
-    \item \textit{Brute Force inkrementell (DDA); $y_{i+1} = m * x_{i+1) + B = y_i + m}$,
+    \item \textit{Brute Force inkrementell (DDA = Digital Differential Analyzer); $y_{i+1} = m * x_{i+1) + B = y_i + m}$,
           Nachteil Gleitkommazahlen und Runden (aufwändig)}
     \item \textit{Mittelpunktschema; Nächsten Punkt wird Kalkuliert durch if / else}
 \end{itemize}
 
 \subsection{Mittelpunktschema}
+\includegraphics[width=0.35\textwidth]{assets/Mittelpunktschema.png}
 
 \textit{Ist eine inkrementelle methode zum Rastern. Mittelpunkt
 wird betrachtet um nächsten Punkt zu finden. ($M = (x_i+1, y_i+\frac{1}{2})$, $E = (x_i+1, y_i)$, $NE = (x_i+1, y_i+1)$)}\\
 
+Initialisierung:\\
 $D_x = x_1 - x_0$; \\
 $D_y = y_1 - y_0$; \\
 $D_E = 2 * D_y$; \\
@@ -23,11 +25,28 @@ $D_{NE} = 2 * (D_y - D_x)$; \\
 $d = 2*D_y - D_x$; \\
 $y = y_0$ \\
 
+\textit{Wegen 1/2 alles mal 2, damit gerade Zahlen}
+
 \textit{
     Für jeden nächsten $d$ Wert, wenn $d <= 0$,
     dann $d = d + D_{NE}$ ansonsten $d = d + D_{NE}$ und $y$ inkremenrieren.
     Jeweils den Punkt $P(x,y)$ zeichnen. $x$ jedesmal inkrementieren.
 }
+
+Berechnung:
+\begin{lstlisting}
+
+WritePixel(x0, y0)
+for x = x0+1 to x1 do
+  if d <= 0 then
+    d = d + DE;
+  else
+    d = d + DNE;
+    y = y + 1;
+  end
+  WritePixel(x,y);
+end
+\end{lstlisting}
 
 \subsection{Kreis Rastern}
 
@@ -49,9 +68,23 @@ $D_{NE} = 2*(x-y)d + 5$\\
     Jeweils den Punkt $P(x,y)$ zeichnen. $x$ jedesmal inkrementieren.
 }
 
+\begin{lstlisting}
+WritePixel(x,y); 
+while y > x do
+  if d < 0 then
+    d = d + 2*x + 3; 
+  else
+    d = d +2*(x-y) + 5;
+    y = y - 1;
+  end
+  x = x + 1; 
+  WritePixel(x,y); 
+end
+\end{lstlisting}
+
 \subsection{Regionen füllen}
 
-\textit{Entweder durch 4-er oder 8-er zusammenhang definiert}
+\textit{Entweder durch 4-er oder 8-er Zusammenhang definiert}
 
 \begin{tabular}{cl}
     \multirow{3}{*}{
@@ -68,7 +101,64 @@ $D_{NE} = 2*(x-y)d + 5$\\
     & \\
 \end{tabular}
 
-\subsection{FloodFill}
+\subsubsection{FloodFill}
 
 \textit{Füllen durch selben abfrage ob selbe Farbe (Photoshop Zauberstab)}
+\begin{lstlisting}
+proc FloodFill(int x, int y, 
+Color oldColor, Color newColor)
+  if ReadPixel(x,y) == oldColor then 
+    WritePixel(x,y,newColor);
+    FloodFill(x, y-1, oldColor, newColor); 
+    FloodFill(x-1,y, oldColor, newColor); 
+    FloodFill(x, y+1, oldColor, newColor); 
+    FloodFill(x+1, y, oldColor, newColor);
+  end
+end
+\end{lstlisting}
 
+\subsection{Zeichnen von gefüllten Polygonen}
+
+\subsubsection{Scanlinien Algorithmus}
+
+\begin{itemize}
+	\item Zeilenweise färben (Spans entlang der y Koordinate -> Scanlinien)
+	\item Kantentabelle (edgetable ET)\\
+		sortierte Kanten (Linien) des Polygon nach min y (innerhalb davon nach x)
+	\item Tabelle aktiver Kanten (AET)\\
+		Momentane Kanten für Scanlinie (sortiert nach x asc) zum Zeichnen vom einer Kante zur nächsten (immer zwei)
+\end{itemize}
+
+\begin{lstlisting}
+Erzeuge ET
+Initialisiere AET = empty
+y=0 
+repeat
+  Addiere alle Kanten ET(y) zu AET
+  Sortiere AET nach x
+  Zeichne Spans
+  y=y+1
+  Entferne Kanten mit ymax = y aus AET
+  Aktualisiere den x Wert aller Kanten in AET
+until AET == empty and ET == empty
+\end{lstlisting}
+
+\subsubsection{Zeichnen von Dreiecken}
+
+\textit{Brute Force: Alle Pixel probieren, ob im Dreieck}
+
+\begin{itemize}
+	\item Baryzentrische Koordinaten\\
+	$P = \alpha A + \beta B + \gamma C$\\
+	$\alpha+\beta+\gamma =1$\\
+	\textit{Wenn Werte zwischen 0 und 1, dann ist Punkt P innerhalb von ABC. Wert einer Koordinate entspricht dem Verhältnis der Fläche eines Teildreiecks mit Ecke P zur Fläche von ABC}
+	
+	\item Unterteilung in 3 Geraden und dann auf der richten Seite aller Geraden
+\end{itemize}
+
+\subsection{Anti-Aliasing}
+\textit{Treppenmuster vermeiden}
+\begin{itemize}
+	\item Prefiltering -> Farbintensität proportional zur Fläche
+	\item Supersampling -> Bild mit höherer Auflösung berechnen und Farbmittelwerte als Übergänge zeichnen
+\end{itemize}
