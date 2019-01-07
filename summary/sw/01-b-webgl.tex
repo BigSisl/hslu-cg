@@ -21,38 +21,60 @@
     ausgeführt.
 }
 
-\subsection{Vertex Processing}
+\subsubsection{Vertex Processing / Vertex Shader}
 
 \textit{
-    Berechnen der Positionen der Vertexe (Punkte) und
+    Berechnen der \textbf{Positionen} der Vertexe (Punkte) und
     Werte für den folgenden Fragmentshader.
 }
 
-\subsection{Fragment Processing}
+\subsubsection{Fragment Processing / Fragment Shader}
 
 \textit{
-    Berechnet die Farbe der einzelnen Pixel.
+    Berechnet die \textbf{Farbe} der einzelnen Pixel.
 }
 
 \subsection{Datenfluss}
 
 \includegraphics[width=0.5\textwidth]{assets/dataprocessing.png}
 
+\subsection{Attribute und Uniform Variablen mit Shaders verbinden}
+
+\begin{enumerate}
+	\item Attribute \\
+	\texttt{ctx.aVertexPositionId = gl.getAttribLocation(ctx.shaderProgram, "aVertexPosition")}
+	
+	\item Uniform \\
+	\texttt{ctx.uColorId = gl.getUniformLocation(ctx.shaderProgram, "uColor"))}
+	
+\end{enumerate}
+
 \subsection{Attribut Variablen und Buffer definieren}
 
 \textbf{Erzeugen}
 
 \begin{enumerate}
-    \item Buffer erzeugen (gl.createBuffer())
-    \item Array Buffer auf Buffer setzen (gl.bindBuffer(...))
-    \item Daten füllen (gl.BufferData(..))
+    \item Buffer erzeugen \\
+    \texttt{var buffer = gl.createBuffer()}
+    
+    \item Array Buffer auf Buffer setzen \\
+    \texttt{gl.bindBuffer(gl.ARRAY\_BUFFER, buffer)}
+    
+    \item Daten füllen \\
+    \texttt{gl.BufferData(gl.ARRAY\_BUFFER, new Float32Array(vertices), gl.STATIC\_DRAW)}
 \end{enumerate}
 
 \textbf{Zeichnen}
 
 \begin{enumerate}
     \item Buffer binden
-    \item Attribut und/oder uniform setzen (gl.vertexAttribPointer(..))
-    \item Attribut als Array setzen (gl.enableVertexAttribArray(..))
-    \item Zeichnen (gl.drawArrays(..))
+    \item Attribut und/oder uniform setzen \\
+    \texttt{gl.vertexAttribPointer(index, size, type, normalized, stride, offset)} \\
+    z.B. \texttt{gl.vertexAttribPointer(ctx.aVertexPositionId, 2, gl.FLOAT, false, 0, 0)}
+    
+    \item Attribut als Array setzen \\
+    \texttt{gl.enableVertexAttribArray(index)}
+    
+    \item Zeichnen \\
+    \texttt{gl.drawArrays(mode, first, count)}
 \end{enumerate}
