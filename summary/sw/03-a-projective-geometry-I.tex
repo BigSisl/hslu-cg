@@ -1,7 +1,8 @@
 \section{Vektoren}
 
 \textit{$\bullet$ Skalarprodukt} \\
-\textit{$\cdot$ Matrixprodukt}
+\textit{$\cdot$ Matrixprodukt} \\
+\textit{$\times$ Kreuzprodukt}
 
 \subsection{Addition}
 
@@ -242,7 +243,7 @@ $D = - \frac{d}{\sqrt{a^2 + b^2 + c^2}}$
     & \\
 \end{tabular}
 
-\subsection{Vektorprodukt}
+\subsection{Vektorprodukt / Kreuzprodukt}
 
 \begin{tabular}{cl}
     \multirow{7}{*}{
@@ -259,17 +260,26 @@ $D = - \frac{d}{\sqrt{a^2 + b^2 + c^2}}$
 $A = \sqrt{(a_2 b_3 - a_3 b_2)^2 + (a_3 b_1 - a_1 b_3)^2 + (a_1 b_2 - a_2 b_1)^2}$ \\
 
 \begin{tabular}{cl}
-    \multirow{4}{*}{
+    \multirow{5}{*}{
         \includegraphics[width=0.15\textwidth]{assets/vectorproduct-build.png}
     }
     & $\vec{a} \times \vec{b} = \begin{bmatrix}
+    		a_1 \\
+    		a_2 \\
+    		a_3 \\
+    	\end{bmatrix} \times \begin{bmatrix}
+    		b_1 \\
+    		b_2 \\
+    		b_3 \\
+    	\end{bmatrix} = \begin{bmatrix}
+    		a_2 b_3 - a_3 b_2 \\
+    		a_3 b_1 - a_1 b_3 \\
+    		a_1 b_2 - a_2 b_1 \\
+    	\end{bmatrix}$ \\
+    	& $= \begin{bmatrix}
             \vec{e}_1 & \vec{e}_2 & \vec{e}_3 \\
             a_1 & a_2 & a_3 \\
             b_1 & b_2 & b_3 \\
-        \end{bmatrix} = \begin{bmatrix}
-            a_2 b_3 - a_3 b_2 \\
-            a_3 b_1 - a_1 b_3 \\
-            a_1 b_2 - a_2 b_1 \\
         \end{bmatrix}$ \\
     & $= (a_2 b_3 - a_3 b_2) \vec{e}_1 +$ \\
     & $(a_3 b_1 - a_1 b_3) \vec{e}_2 + (a_1 b_2 - a_2 b_1) \vec{e}_3 $ \\
@@ -289,6 +299,26 @@ $A = \sqrt{(a_2 b_3 - a_3 b_2)^2 + (a_3 b_1 - a_1 b_3)^2 + (a_1 b_2 - a_2 b_1)^2
           $\vec{a}$ und $\vec{b}$ liegen auf der Ebene.
     \item \textbf{Kollinearität} kollinear (d.h. linear abhängig) wenn Vektorprodukt verschwinded
 \end{itemize}
+
+\subsection{Matrixprodukt}
+
+\textit{falksche Schema} \\
+
+$\vec{a} \cdot \vec{b} = \begin{bmatrix}
+a_1 & a_3\\
+a_2 & a_4\\
+\end{bmatrix} \cdot \begin{bmatrix}
+b_1 & b_3 \\
+b_2 & b_4 \\
+\end{bmatrix} = \begin{bmatrix}
+a_1 b_1 + a_3 b_2 & a_1 b_3 + a_3 b_4\\
+a_2 b_1 + a_4 b_2 & a_2 b_3 + a_4 b_4\\
+
+\end{bmatrix}$ \\
+
+\textit{In Worten für die erste Zeile: $a_1$ mal die erste Zeile + $a_3$ mal die zweite Zeile etc.. Wobei die Spalten unabhängig bleiben.}
+
+\includegraphics[width=0.45\textwidth]{assets/FalkschesSchema.png}
 
 \subsection{Spatprodukt}
 
