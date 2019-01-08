@@ -9,9 +9,9 @@
 \subsubsection{paralelle Projektionen}
 
 \begin{itemize}
-	\item Geraden und Parallelen bleiben erhalten
-	\item konstante Verkürzung in eine Richtung
-	\item keine Winkeltreue
+    \item Geraden und Parallelen bleiben erhalten
+    \item konstante Verkürzung in eine Richtung
+    \item keine Winkeltreue
 \end{itemize}
 
 \paragraph{Ortographische Projektion}
@@ -21,7 +21,7 @@
 \paragraph{Isometrische Projektion}
 \textit{Ortographische auf die Ebene}\\
 \includegraphics[width=0.25\textwidth]{assets/IsometrischeProjektion.png}
-	
+
 \paragraph{Kavaliersprojektion}
 \textit{Parallelprojektion mit 45 Grad. Linien rechtwinklig zur Ebene haben natürliche Länge}\\
 \includegraphics[width=0.25\textwidth]{assets/Kavaliersprojektion.png}
@@ -32,10 +32,44 @@
 
 \subsubsection{perspektivitsche Projektionen}
 \begin{itemize}
-	\item Simuliert Kamera oder Auge
-	\item Spezifiziert durch Projektionszentrum und Projektionsebene
-	\item Geraden bleiben erhalten
-	\item Parallelen schneiden sich in einem Punkt (Fluchtpunkt)
-	\item Objektgrösse nimmt proportional zum Abstand vom Projektionszentrum ab
+    \item Simuliert Kamera oder Auge
+    \item Spezifiziert durch Projektionszentrum und Projektionsebene
+    \item Geraden bleiben erhalten
+    \item Parallelen schneiden sich in einem Punkt (Fluchtpunkt)
+    \item Objektgrösse nimmt proportional zum Abstand vom Projektionszentrum ab
 \end{itemize}
-\includegraphics[width=0.35\textwidth]{assets/PerspektivischeProjektion.png}
+\includegraphics[width=0.35\textwidth]{assets/perspektivische-projektion.png}
+
+\subsubsection{perspektivitsche Projektion berechnen}
+
+\textit{Projektionsebene parallel zur x-y Ebene bei z=d wenn Projektionszentrum = $(0,0,0)$} \\
+
+\includegraphics[width=0.4\textwidth]{assets/viewing-projektionsebene.png}
+
+\textit{Ansicht entlang x-Achse}
+
+\includegraphics[width=0.4\textwidth]{assets/viewing-projektionsebene-xachse.png}
+
+\textit{Projektionsmatrix in homogene Koordinaten}\\
+$M_{per} = \begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & \frac{1}{d} & 0 \\
+\end{bmatrix}$\\
+
+\textit{Für $d \leftarrow \infty$ entsteht eine Parallelprojektionsmatrix}
+$M_{orth}' = \begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1 \\
+\end{bmatrix}$
+
+\subsection{Vertex Transformationen}
+
+\textit{Matrix im Vertexshader benötigt:}
+
+\includegraphics[width=0.4\textwidth]{assets/vertex-transformation.png}
+
+

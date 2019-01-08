@@ -35,7 +35,6 @@ $y = y_0$ \\
 
 Berechnung:
 \begin{lstlisting}
-
 WritePixel(x0, y0)
 for x = x0+1 to x1 do
   if d <= 0 then
@@ -69,16 +68,16 @@ $D_{NE} = 2*(x-y)d + 5$\\
 }
 
 \begin{lstlisting}
-WritePixel(x,y); 
+WritePixel(x,y);
 while y > x do
   if d < 0 then
-    d = d + 2*x + 3; 
+    d = d + 2*x + 3;
   else
     d = d +2*(x-y) + 5;
     y = y - 1;
   end
-  x = x + 1; 
-  WritePixel(x,y); 
+  x = x + 1;
+  WritePixel(x,y);
 end
 \end{lstlisting}
 
@@ -105,13 +104,13 @@ end
 
 \textit{Füllen durch selben abfrage ob selbe Farbe (Photoshop Zauberstab)}
 \begin{lstlisting}
-proc FloodFill(int x, int y, 
+proc FloodFill(int x, int y,
 Color oldColor, Color newColor)
-  if ReadPixel(x,y) == oldColor then 
+  if ReadPixel(x,y) == oldColor then
     WritePixel(x,y,newColor);
-    FloodFill(x, y-1, oldColor, newColor); 
-    FloodFill(x-1,y, oldColor, newColor); 
-    FloodFill(x, y+1, oldColor, newColor); 
+    FloodFill(x, y-1, oldColor, newColor);
+    FloodFill(x-1,y, oldColor, newColor);
+    FloodFill(x, y+1, oldColor, newColor);
     FloodFill(x+1, y, oldColor, newColor);
   end
 end
@@ -121,25 +120,33 @@ end
 
 \subsubsection{Scanlinien Algorithmus}
 
+\begin{tabular}{cc}
+  \includegraphics[width=0.25\textwidth]{assets/scanlinien-alg.png} &
+  \includegraphics[width=0.25\textwidth]{assets/scanlinien-alg-demo.png} \\
+\end{tabular}
+
 \begin{itemize}
 	\item Zeilenweise färben (Spans entlang der y Koordinate -> Scanlinien)
 	\item Kantentabelle (edgetable ET)\\
-		sortierte Kanten (Linien) des Polygon nach min y (innerhalb davon nach x)
+    sortierte Kanten (Linien) des Polygon nach min y (innerhalb davon nach max x)
+  \item Einträge werden gespeichert durch $[x|l/m|y_{min}|y_{max}]$
 	\item Tabelle aktiver Kanten (AET)\\
 		Momentane Kanten für Scanlinie (sortiert nach x asc) zum Zeichnen vom einer Kante zur nächsten (immer zwei)
 \end{itemize}
 
 \begin{lstlisting}
-Erzeuge ET
-Initialisiere AET = empty
-y=0 
+Erzeuge ET (Kantentabelle)
+Initialisiere AET = empty  (Aktive Kanten)
+y=0
 repeat
-  Addiere alle Kanten ET(y) zu AET
+  Addiere und entferne alle Kanten
+      ET(y) zu AET
   Sortiere AET nach x
   Zeichne Spans
   y=y+1
   Entferne Kanten mit ymax = y aus AET
-  Aktualisiere den x Wert aller Kanten in AET
+  Aktualisiere den x Wert aller
+      Kanten in AET
 until AET == empty and ET == empty
 \end{lstlisting}
 
@@ -147,18 +154,38 @@ until AET == empty and ET == empty
 
 \textit{Brute Force: Alle Pixel probieren, ob im Dreieck}
 
-\begin{itemize}
-	\item Baryzentrische Koordinaten\\
-	$P = \alpha A + \beta B + \gamma C$\\
-	$\alpha+\beta+\gamma =1$\\
-	\textit{Wenn Werte zwischen 0 und 1, dann ist Punkt P innerhalb von ABC. Wert einer Koordinate entspricht dem Verhältnis der Fläche eines Teildreiecks mit Ecke P zur Fläche von ABC}
-	
-	\item Unterteilung in 3 Geraden und dann auf der richten Seite aller Geraden
-\end{itemize}
+\begin{tabular}{cl}
+  \multirow{3}{*}{
+      \includegraphics[width=0.2\textwidth]{assets/draw-baryzentrische-coordinates.png}
+  } & \\
+  & Baryzentrische Koordinaten \\
+  & \\
+  & $P = \alpha A + \beta B + \gamma C$\\
+  & \\
+  & $\alpha+\beta+\gamma =1$\\
+  & \\
+\end{tabular}
+
+\textit{Wenn Werte zwischen 0 und 1, dann ist Punkt P innerhalb von ABC.
+Wert einer Koordinate entspricht dem Verhältnis der Fläche eines Teildreiecks
+mit Ecke P zur Fläche von ABC}\\
+
+\begin{tabular}{cl}
+  \multirow{3}{*}{
+    \includegraphics[width=0.15\textwidth]{assets/draw-line-side.png}
+  } & 2. Bruteforce Option \\
+  & \\
+  & Unterteilung in 3 Geraden. \\
+  & Zeichnen wenn auf der richtigen\\
+  & Seite aller Geraden \\
+  & \\
+  & \\
+\end{tabular}
 
 \subsection{Anti-Aliasing}
 \textit{Treppenmuster vermeiden}
 \begin{itemize}
-	\item Prefiltering -> Farbintensität proportional zur Fläche
-	\item Supersampling -> Bild mit höherer Auflösung berechnen und Farbmittelwerte als Übergänge zeichnen
+	\item Prefiltering -> Farbintensität proportional zur Fläche oder Linie
+  \item Supersampling -> Bild mit höherer Auflösung berechnen und Farbmittelwerte
+    als Übergänge zeichnen (4x Sample Patter, Quincunx AA Sample Pattern)
 \end{itemize}
