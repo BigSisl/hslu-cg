@@ -138,6 +138,71 @@ $\begin{pmatrix} C \\ M \\ Y \end{pmatrix} =
 \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} -
 \begin{pmatrix} R \\ G \\ B \end{pmatrix}$ \\
 
+\subsubsection{RGB -> CMYK}
+\textit{devide by 255 to get range from 0-1}\\
+$R' = R / 255$\\
+$G' = G / 255$\\
+$B' = B / 255$\\
+\\
+$K = 1-max(R',G'.B')$\\
+$C = (1-R'-K) / (1-K)$\\
+$M = (1-G'-K) / (1-K)$\\
+$Y = (1-B'-K) / (1-K)$\\
+
+\subsubsection{CMYK -> RGB}
+
+$R = 255 \cdot (1-C) \cdot (1-K)$\\
+$G = 255 \cdot (1-M) \cdot (1-K)$\\
+$B = 255 \cdot (1-Y) \cdot (1-K)$\\
+
+\subsubsection{RGB -> HSV}
+\textit{devide by 255 to get range from 0-1}\\
+$R' = R / 255$\\
+$G' = G / 255$\\
+$B' = B / 255$\\
+
+$Cmax = max(R',G',B')$\\
+$Cmin = min(R',G',B')$\\
+$\Delta = Cmax - Cmin$\\
+
+\textbf{Hue calculation}\\
+
+$H = \begin{cases}
+	0^\circ     & \text{ falls } \Delta = 0 \\
+	60^\circ \cdot (\frac{G'-B'}{\Delta}mod 6) & \text{ falls } Cmax = R' \\
+	60^\circ \cdot (\frac{B'-R'}{\Delta}+2) & \text{ falls } Cmax = G' \\
+	60^\circ \cdot (\frac{R'-G'}{\Delta}+4) & \text{ falls } Cmax = B' \\
+\end{cases}$
+
+\textbf{Saturation calculation}\\
+
+$S = \begin{cases}
+	0     & \text{ falls } Cmax = 0 \\
+	\frac{\Delta}{Cmax} & Cmax \neq 0 \\
+\end{cases}$
+
+\textbf{Value calculation}\\
+$V = Cmax$
+
+\subsubsection{HSV -> RGB}
+
+\textit{$0 \leq H \leq 360, 0 \leq S \leq 1, 0 \leq V \leq 1$}
+
+$C = V \cdot S$\\
+$X = C \cdot (1 - |(H / 60^\circ) mod 2-1|)$\\
+$m = V - C$\\
+
+$(R',G',B') = \begin{cases}
+	(C,X,0)	& \text{ falls } 0^\circ \leq H \leq 60^\circ \\
+	(X,C,0)	& \text{ falls } 60^\circ \leq H \leq 120^\circ \\
+	(0,C,X)	& \text{ falls } 120^\circ \leq H \leq 180^\circ \\
+	(0,X,C)	& \text{ falls } 180^\circ \leq H \leq 240^\circ \\
+	(X,0,C)	& \text{ falls } 140^\circ \leq H \leq 300^\circ \\
+	(C,0,X)	& \text{ falls } 300^\circ \leq H \leq 360^\circ \\
+\end{cases}$
+
+$(R,G,B) = ((R'+m)\cdot255, (G'+m)\cdot255, (B'+m)\cdot255)$
+
 \textit{HSV <> RGB: }\\
 \includegraphics[width=0.4\textwidth]{assets/hsv-rgb.png}
 \\
