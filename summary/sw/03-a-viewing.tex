@@ -19,7 +19,7 @@
 \includegraphics[width=0.25\textwidth]{assets/OrtographischeProjektion.png}
 
 \paragraph{Isometrische Projektion}
-\textit{Ortographische auf die Ebene}\\
+\textit{Ortographische auf die Ebene (1,1,1)}\\
 \includegraphics[width=0.25\textwidth]{assets/IsometrischeProjektion.png}
 
 \paragraph{Kavaliersprojektion}
@@ -71,5 +71,18 @@ $M_{orth}' = \begin{bmatrix}
 \textit{Matrix im Vertexshader benötigt:}
 
 \includegraphics[width=0.4\textwidth]{assets/vertex-transformation.png}
+
+\begin{lstlisting}
+attribute vec3 aVertexPosition;
+uniform mat4 uModelViewMatrix;
+uniform mat4 uProjectionMatrix;
+void main() {
+  vec4 position = vec4(aVertexPosition, 1.0);
+  gl_Position =
+    uProjectionMatrix *
+    uModelViewMatrix *
+    position;
+}
+\end{lstlisting}
 
 
