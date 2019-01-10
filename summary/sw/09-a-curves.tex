@@ -10,7 +10,8 @@ $\gamma : [a,b] \rightarrow \mathbb{R} , x \mapsto y = f(x)$ \\
 \\
 \textbf{Implizite Darstellung} \\
 $F(x,y) = 0$ \\
-\textit{Kreis: $x^2 + y^2 - r^2 = 0$} \\
+\textit{Kreis mir radius $r$ und Zentrum $(0,0)$:} \\
+\textit{$x^2 + y^2 - r^2 = 0$}
 \\
 \textbf{Parameterdarstellung} \\
 $\gamma : [a,b] \rightarrow \mathbb{R}^2,t \mapsto X(t) = \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix}$ \\
@@ -19,10 +20,21 @@ $\gamma : [a,b] \rightarrow \mathbb{R}^2,t \mapsto X(t) = \begin{bmatrix} x_1(t)
 \\
 \textit{-> einzelne Funktionen für $x$ \& $y$}\\
 
+\textit{Beachte, Parameterdarstellung ist nicht eindeutig;}\\
+\textit{$\gamma : [0,\pi] \rightarrow \mathbb{R}^2,t \mapsto X(t) =
+\begin{bmatrix}
+    r \cos(2t) \\ r \cos(2t)
+\end{bmatrix}$, Kreis doppelt so schnell durchlaufen ($2t$)}
+
+\textit{$\gamma : [0,\pi] \rightarrow \mathbb{R}^2,t \mapsto X(t) =
+\begin{bmatrix}
+    r \cos(2\pi t) \\ r \cos(2\pi t)
+\end{bmatrix}$, Kreis durchlaufen in einer Zeiteinheit 1 ($2\pi t$)}
+
 \subsection{Kurve im Raum}
 \textit{Parameterdarstellung mit 3 Komponenten}
 
-$\gamma : [a,b] \rightarrow \mathbb{R}^3,t \mapsto X(t) = 
+$\gamma : [a,b] \rightarrow \mathbb{R}^3,t \mapsto X(t) =
 \begin{bmatrix}
     x_1(t) \\
     x_2(t) \\
@@ -31,32 +43,43 @@ $\gamma : [a,b] \rightarrow \mathbb{R}^3,t \mapsto X(t) =
 
 \subsection{Spirale entlang des Zylinders}
 
-$x^2 + y^2 = r^2$ \\
-$\gamma : [0, 4\pi] \rightarrow \mathbb{R}^3, t \mapsto X(t) = \begin{bmatrix}
-    r \cos t \\ r sin t \\ ht / (2\pi)
-\end{bmatrix}$ \\
-\textit{Grundriss ergibt Kreis, Höhe Linear}
+
+\begin{tabular}{cl}
+    \multirow{8}{*}{
+        \includegraphics[width=0.18\textwidth]{assets/curves-spiral-following-cylinder.png}
+    } & $x^2 + y^2 = r^2$ \\
+    & \\
+    & $\gamma : [0, 4\pi] \rightarrow \mathbb{R}^3,$ \\
+    & $t \mapsto X(t) = \begin{bmatrix}
+        r \cos t \\ r sin t \\ ht / (2\pi)
+    \end{bmatrix}$ \\
+    & \textit{Grundriss ergibt Kreis, Höhe Linear} \\
+    & \\
+\end{tabular}
+
+\includegraphics[width=0.5\textwidth]{assets/curves-spiral-following-cylinder-sol.png}
 
 \subsection{Splines Übersicht (Interpolation versus Approximation)}
 \includegraphics[width=0.5\textwidth]{assets/InterpolationVSApproximation.png}
 
 
 \subsection{Methode unbestimmte Koeffizienten (Interpolation)}
-TODO Beschreibung
-$P_3(x) = c_0 + c_1x^2 + c_2x^2 + c_3x^3$ \\
+$P_3(x) = c_0 + c_1x + c_2x^2 + c_3x^3$ \\
 \\
-$\begin{bmatrix}
+\textit{Auflösen durch einfügen von $P_0(x_0, y_0)$, $P_1(x_1, y_1)$, $P_2(x_2, y_2)$, ..}
+\\
+    $\begin{bmatrix}
     1 & x_0 & x_0^2 & x_0^3 \\
     1 & x_1 & x_1^2 & x_1^3 \\
     1 & x_2 & x_2^2 & x_2^3 \\
     1 & x_3 & x_3^2 & x_3^3 \\
-\end{bmatrix} 
+\end{bmatrix}
 \begin{bmatrix}
     c_0 \\
     c_1 \\
     c_2 \\
     c_3
-\end{bmatrix} = 
+\end{bmatrix} =
 \begin{bmatrix}
     y_0 \\
     y_1 \\
@@ -79,9 +102,8 @@ $g(x) = 0 \cdot L_0(x) + 2 \cdot L_1(x) + 0 \cdot L_2(x) + 2 \cdot L_3(x)$
 \textit{Addition der einzelnen Polynome ergibt die gesuchte Kurve durch die vorgegebenen Punkte}\\
 \\
 
-TODO aufräumen:
-$l_0(x) = (x-x_1)(x-x_2)\dots$ \\
-$L_0(x) = \frac{l_0(x)}{l_0(x_0)} = \frac{(x-x_1)(x-x_2)\dots}{(x_0-x_1)(x_0-x_2)\dots}$ \\
+Allgemein:\\
+$L_n(x) = \frac{(x-x_1)(x-x_2)\dots[ohne (x-x_n)]}{(x_n-x_1)(x_n-x_2)\dots[ohne (x_n-x_n)]}$ \\
 $P_n(x) = y_0L_0(x)+y_1L_1(x)+ \dots + y_nL_n()$ \\
 \\
 \textit{Funktionen an den Stützstellen entweder Null oder Eins}
@@ -133,16 +155,118 @@ $P_2^2(t) = (1 - t) P_1^1(t) + tP_2^1(t)$ \\
 $P(t) = (1 - t)^3P_0 + 3(1 - t)^2tP_1 + 3(1 - t)t^2P_2 + t^3P_3$
 
 \subsection{Bernsteinpolynome}
-TODO
+
+\textit{Bernsteinpolynom für kubische Bézier-Spline:}\\
+$B^3_i(t) = \left(\begin{matrix}
+    3 \\ i
+\end{matrix}\right) (1-t)^{3-i}t^i$, $(0 \leq i \leq 3)$\\
+
+\textit{Dadurch folgt $P(t)$, wobei $P_n$ Kontrollpunkte sind:} \\
+$P(t) = (1 - t)^3P_0 + 3(1 - t)^2tP_1 + 3(1 - t)t^2P_2 + t^3P_3 = \displaystyle \sum_{i=0}^{3}( B_i^3(t) P_i )$ \\
+
+\textit{Allgemein bedeutet dies also bei $n$-Anzahl:}\\
+$\displaystyle \sum^n_{i=0}(B^n_i(t)P_i)$\\
+$B_i^n(t) = \left(\begin{matrix}
+    n \\ i
+\end{matrix}\right) (1 - t)^{n-i}t^i$, $(0 \leq i \leq n)$\\
+
+\textit{Die Bernoulli Pyramide verhilft beim auflösen:}\\
+\[
+    \begin{matrix}
+          &   &   &   & 1 &   &   &   & \\
+          &   &   & 1 &   & 1 &   &   & \\
+          &   & 1 &   & 2 &   & 1 &   & \\
+          & 1 &   & 3 &   & 3 &   & 1 & \\
+        1 &   & 4 &   & 6 &   & 4 &   & 1 \\
+      \vdots&&\vdots&&\vdots&&\vdots&&\vdots \\
+    \end{matrix}
+\]
+
+\subsection{Eigenschaft Bernsteinpolynome}
+
+\begin{itemize}
+    \item Die gweichtung addiert sich zu eins: \\
+        $B_i^n(t) = \left(\begin{matrix}
+            n \\ i
+        \end{matrix}\right) (1 - t)^{n-i}t^i = 1^3 = 1$
+    \item Die Funktionswerte sind immer grösser gleich Null:\\
+        $B_i^n(t) \geq 0$ für $i = 0,1,\dots, n$, $t \in [0,1]$
+    \item  $B^i_n(t)$ ist maximal für $t=\frac{i}{n}$, $i = 0,1,\dots, n$
+    \item Sind Symetrisch: \\
+          $B^n_i(t) = B^n_{n-i}(1-t)$, $i = 0,1,\dots, n$
+    \item Rekursiveigenschaft:$B^{n+1}_{i+1}(t) = tB_i^n(t) + (1-t)B^n_{i+1}(t)$
+    \item Differation: \\
+        $\frac{d}{dt}(B^n_i(t)) = n[B^{n-1}_{i-1}(t) - B^{n-1}_i(t)]$,\\
+        $i = 0,1,\dots, (n-1)$\\
+        \textit{Beachte bei: $B_{-1}^{n-1}=0$}
+\end{itemize}
+
+\subsection{Rekursiveigenschaft Bézier-Kurven}
+
+\textit{Die Rekursiveigenschaft zeigt auf, dass die Bezierkurve in
+kleinere Ordnungen aufgeteilt werden kann:}\\
+
+\includegraphics[width=0.5\textwidth]{assets/curves-recursive-spline.png}
 
 \subsection{Bézier-Kurven}
-TODO
-\textit{Kurve immer innerhalb der konvexen Hülle des Linienzuges der Kontrollpunkte}
+
+\textbf{Eigenschaften}
+
+\begin{tabular}{cl}
+    \multirow{8}{*}{
+        \includegraphics[width=0.19\textwidth]{assets/curves-qubic-besier-curve.png}
+    } & \\
+    & \\
+    & \textit{Die Bézier-Kurve liegt immer}\\
+    & \textit{innerhalb der konvexen Hülle}\\
+    & \textit{des Linienzuges} \\
+    & \textit{(convex hull property)} \\
+    & \\
+    & \\
+\end{tabular}
+\begin{itemize}
+    \item \textit{Die Anzahl der Kontrollpunkte $P_0, P_1, \dots, P_n$
+    bestimmt den Grad n der Bézier-Kurve}\\
+    \item \textit{Änderung eines Kontrollpunktes bewirkt eine
+    Änderung der gesamten Kurve}\\
+    \item \textit{Setzt man stetige Funktionswerte und
+    Ableitungen voraus, lassen sich Bézier-Kurven
+    höheren Grades durch Bézier-Kurven
+    niedrigeren Grades zusammensetzen.}\\
+\end{itemize}
+\textbf{Stetigkeit}
+\begin{itemize}
+    \item[$C^0$]-Stetigkeit: Segmente haben an den Eckpunkte keine Sprünge
+    \item[$C^1$]-Stetigkeit: Segmente haben an den Eckpunkte gemeinsame Tangente (erste Ableitung gleich)
+    \item[$C^2$]-Stetigkeit: Segmente haben an den Eckpunkte die selbe Krümmung (zweite Ableitung gleich)
+\end{itemize}
 
 \subsection{B-Spline-Kurven}
-TODO
+
+\textit{Verallgemeinerung der Bézier-Kurven
+(Ordnung kann kleiner als Anzahl Kontrollpunkte sein):}\\
+
+$B_{n,k}(t) = \displaystyle \sum^n_{j=0}(N_{j,k}(t) P_j)$\\
+
+\textit{$k$: Ordnung der Kurve} $2 \leq k \leq n+1$\\
+\textit{$t$: gleich wie bei Bézier} $t \in [0, n-k+2]$\\
+
+\textit{$k=2$: linear}\\
+\textit{$k=3$: quadtratisch}\\
+\textit{$k=4$: kubisch}
+
+\subsection{B-Splines}
+
+\textit{$N_{j,k}(t)$ sind die B-Splines (Gewichtsfunktion, blending functions)}\\
+\textit{Sie sind $k$-Ordnung und ($k-1$) Polynome}\\
+\textit{Dabei geht es um nichts anders als Bézier-Kurven mit Gewichtung zu verknüpfen,
+abhängig der Ordnung wird die Verknüpfung weicher}\\
+\textit{Sind Rekursiv definiert}\\
+
+$N_{j,1} = $
+
 \begin{itemize}
-	\item lokale Funktionen nur in der Nähe von Pj verschieden von 0 
+	\item lokale Funktionen nur in der Nähe von Pj verschieden von 0
 	\item Einfluss vom Punkt auf die gesamte Kurve ist kleiner
 \end{itemize}
 
