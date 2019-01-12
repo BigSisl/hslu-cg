@@ -261,20 +261,92 @@ $B_{n,k}(t) = \displaystyle \sum^n_{j=0}(N_{j,k}(t) P_j)$\\
 \textit{Sie sind $k$-Ordnung und ($k-1$) Polynome}\\
 \textit{Dabei geht es um nichts anders als Bézier-Kurven mit Gewichtung zu verknüpfen,
 abhängig der Ordnung wird die Verknüpfung weicher}\\
+
+\subsection{Kontenvektor der B-Splines}
+
+$\mathbf{t}_j = \begin{multicases}{2}
+    0\text{,}       & \text{ für } j < k & \\
+    j-k+1\textit{,} & \text{ für } k \leq j \leq n & (0 \leq j \leq n+k)
+\end{multicases}$
+
+\textit{$n$: Anzahl Kontrollpunkte }\\
+\textit{$k$: Grad des Polynoms}\\
+\textit{$j$: Position im Knotenvektor $(0 \leq j \leq n+k)$}
+\textit{$\mathbf{t}$: Knotenvektor (ACHTUNG: $\mathbf{t} \neq t$)}
+
+\textit{Beispiel:}\\
+\textit{5 Kontrollpunkte ($n = 5$), kubische Polynome ($n = 4$)}\\
+
+$\begin{matrix}
+    j & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & \\
+    \mathbf{t}=(& 0 & 0 & 0 & 0 & 1 & 2 & 3 & 3 & 3 & 3 &) \\
+\end{matrix}$
+
+\includegraphics[width=0.5\textwidth]{assets/curves-b-spline-example.png}
+
+\textit{Der Knotenvektor kann irgend ein Vektor mit nicht abnehmenden Komponenten sein}\\
+$(t_i \leq t_{i+1}, \forall i)$\\
+\textit{Typen:
+    \textbf{uniform Knotenvektor}: $(1,2,3,4)$,
+    \textbf{offen uniform Knotenvektor}: $(0,0,0,1,2,3,3,3)$,
+    \textbf{nicht uniform Knotenvektor}
+}
+
+\subsection{B-Splines Formel}
+
 \textit{Sind Rekursiv definiert}\\
 
-$N_{j,1} = $
+\textit{Stückwieses Polygon 0. Gerades (Konstant):}\\
+$N_{j,1}(t) = \begin{cases}
+    1 \text{ für } \mathbf{t}_j \leq t < \mathbf{t}_{j+1} \\
+    0 \text{ sonst }
+\end{cases}$\\
+
+$N_{j,m}(t) =$\\
+$\frac{t-\mathbf{t}_j}{\mathbf{t}_{j+m-1} - \mathbf{t}_j} N_{j,m-1}(t) +
+\frac{\mathbf{t}_{j+m} - t}{\mathbf{t}_{j+m} - \mathbf{t}_{j+1}} N_{j+1,m-1}(t)$,\\
+$m = 2,3, \dots ,k$\\
+
+\textit{$m$: Gewichtungsverteilung, desto grösser $m$ desto weicher}\\
+\textit{$\mathbf{t}$: Knotenvektor}\\
+\textit{$t$: Position in Zeit (gleich wie bei Bézier)}\\
+\textit{$j$: Position im Knotenvektor}
 
 \begin{itemize}
-	\item lokale Funktionen nur in der Nähe von Pj verschieden von 0
-	\item Einfluss vom Punkt auf die gesamte Kurve ist kleiner
+    \item lokale Funktionen nur in der Nähe von Pj verschieden von 0
+    \item Einfluss vom Punkt auf die gesamte Kurve ist kleiner
 \end{itemize}
+
+\subsection{NURBS (Rationale B-Spline Kurve)}
+
+\textit{Jeder Kontrollpunkt $P_j$ erhält eine Gewichtung $w_j$.}\\
+
+$P(t) = \frac{\sum^n_{j=0}(N_{j,k}(t)w_jP_j)}{\sum^n_{j=0}(N_{j,k}(t)w_j)}$\\
+
+\textit{Dies ist auch mit der Bézier-Kurve möglich:}\\
+$P(t) = \frac{\sum^n_{j=0}(B_i^n(t)w_jP_j)}{\sum^n_{j=0}(B_i^n(t)w_j)}$\\
+
+\includegraphics[width=0.3\textwidth]{assets/curves-weigths.png}
 
 \subsection{NURBS (Non Uniform Rational Basic Splines)}
-TODO
+
 \begin{itemize}
-	\item homogenisiert
-	\item rationale B-Spline-Kurve
-	\item Punkte mit Gewichtung
-	\item invariant bei den Transformationen
+    \item homogenisierte Kurve
+    \item rationale B-Spline-Kurve
+    \item Punkte mit Gewichtung
+    \item invariant bei den Transformationen (Skalierung, Translation, Rotation, Scherung) und
+    den Parallel- und Perspektivprojektionen.
 \end{itemize}
+
+$\displaystyle P(t) = \sum^n_{i=0}(R_{i,k}(t)P_i)$\\
+
+$R_{i,k}(t) = \frac{w_iN_{i,k}(t)}{\sum^n_{i=0}w_iN_{i,k}(t)}$\\
+
+\textit{für 4-Dimensionale Punkte ($Q_i = (x_i, y_i, z_i, w_i)$) (homogenisierter 3-Dimensionaler Punkt)
+ist die nicht-rational B-Spline-Kurve:}\\
+
+$\displaystyle P(t) = \sum^n_{i=0}(N_{i,k}(t)Q_i)$\\
+
+\textit{Die rationale B-Spline Kurve erhält man dann durch $w_i$ teilen:}\\
+
+$P_r(t) = \frac{\sum^n_{i=0}(N_{i,k}(t)w_iP_i)}{\sum^n_{i=0}(N_{i,k}(t)w_i)} = \sum^n_{i=0}(R_{i,k}(t)P_i)$

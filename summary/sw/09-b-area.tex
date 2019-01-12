@@ -13,28 +13,42 @@ $z = f(x,y) = x^2 - y^2$ \\
 \\
 \textbf{Implizite Darstellung} \\
 \textit{Kugel:}
-$(x-x0)^2 + (y-y0)^2 + (z-z0)^2 = R^2$ \\
-\textit{x0, y0, z0 = Zentrum}
+$(x-x_0)^2 + (y-y_0)^2 + (z-z_0)^2 = R^2$ \\
+\textit{$x_0$, $y_0$, $z_0$ = Zentrum}
 \\
 \textbf{Parameterdarstellung} \\
 
 Zylinderkoordinaten:
 \textit{$(r,\theta,z)$}
 \includegraphics[width=0.3\textwidth]{assets/Zylinderkoordinaten.png}
-\includegraphics[width=0.3\textwidth]{assets/ZylinderkoordinatenUmrechnnung.png}
+\includegraphics[width=0.4\textwidth]{assets/ZylinderkoordinatenUmrechnnung.png}
 
 Kugelkoordinaten:
 \textit{$(\rho,\phi,\theta)$}
 \includegraphics[width=0.3\textwidth]{assets/Kugelkoordinaten.png}
-\includegraphics[width=0.3\textwidth]{assets/KugelkoordinatenUmrechnung.png}
+\includegraphics[width=0.4\textwidth]{assets/KugelkoordinatenUmrechnung.png}
 
+Rotationsfläche:\\
+\textit{$x=u$}\\
+\textit{$y = f(x) * cos(v)$}\\
+\textit{$z = f(x) * sin(v)$}\\
 
-Rotationsfläche:
-\textit{$x=u$}
-\textit{$y = f(x) * cos(v)$}
-\textit{$z = f(x) * sin(v)$}
 \subsection{Freiformflächen}
-TODO
+
+\textit{Handelt sich dabei und den selben Ansatz wie bei den Kurven,
+nur auf flächen, siehe Kurven:}\\
+
+$F(u) = \displaystyle \sum^n_{i=0}(C_i N_i (u))$, $0 \leq u \leq 1$\\
+\textit{Kurve $F(u)$ mit Grad $n$}\\
+$G(u) = \displaystyle \sum^m_{j=0}(C_j N_j (v))$, $0 \leq v \leq 1$\\
+\textit{Kurve $G(u)$ mit Grad $m$}\\
+
+$S(u,v) = \displaystyle \sum^n_{i=0}\sum^m_{j=0}(C_iC_jN_i(u)N_j(v))$, $0 \leq u, v \leq 1$\\
+\textit{$S(u,v)$ definiert die Tensorproduktfläche}
+
+\textit{Wobei $C_i$, $C_j$ Kontrollpunkte sind und $N_i$, $N_j$ die Splineformel}
+
+\includegraphics[width=0.5\textwidth]{assets/area-splines.png}
 
 \begin{itemize}
 	\item Tensorproduktfläche S(u,v) = Fläche gegeben von Kurven F(u) \& G(v) \\

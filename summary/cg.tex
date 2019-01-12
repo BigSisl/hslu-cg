@@ -42,6 +42,15 @@
 
 \setlength{\columnsep}{1cm}
 \setlength{\parindent}{0cm}
+\setcounter{MaxMatrixCols}{20}
+
+\makeatletter
+\newenvironment{multicases}[1]
+  {\let\@ifnextchar\new@ifnextchar
+   \left\lbrace\def\arraystretch{1.2}%
+   \array{@{}l*{#1}{@{\quad}l}@{}}}
+  {\endarray\right.\kern-\nulldelimiterspace}
+\makeatother
 
 \newenvironment{tightenumerate}{
 \begin{enumerate}
