@@ -305,17 +305,27 @@ $\mathbf{H} = \begin{bmatrix}
     a & b & c & 0
 \end{bmatrix}$ \\
 
-\textit{Projektionszentrum muss dann im Zentrum liegen.}
+\textit{Projektionszentrum muss dann im Zentrum liegen.
+Somit muss erst die Translationsmatrix ermittelt werden wenn Zentrum nicht beim 0 Punkt.}\\
 
-\textit{\\
-    Wenn Ebene nicht mit Nullpunkt im Zentrum, dann zum Zentrum transferieren.
-    Wichtig, die perspektivische Ebene muss transferiert werden. Bsp: x-y-Ebene ($0x + 0y + 1z + d = 0$) hat $\epsilon: z = 0$
-    dies mit der Transformation multiplizieren. Bei Zentrum der x-y-Ebene $Z(2,4,-3)$ entspricht
-    $\epsilon^\star: z = 3$, somit $d = 3$ wenn verschoben:
-}
-$[-2, -4, 3, 1] \begin{bmatrix}
-    0 \\ 0 \\ 1 \\ d \\
-\end{bmatrix} = 0$ \\
+\textit{Vorgehen wenn Zentrum nicht beim 0 Punkt:}\\
+\begin{enumerate}
+    \item \textit{$P_0$ Punkt auf ebene bestimmen. Bsp: $P_0 = [0,0,0,1]$ für xy-Ebene ($\epsilon: z=0$)}
+    \item \textit{homogener Punkt $P_0$ Transformieren}
+    \item \textit{Errechnen der Ebenen-Formel an neuer Position durch
+    $\|\vec{n}\|$ und $P_0$ ($d$ erhalten, oder Distanz $D$ ausrechnen, dann $d=-D$). Bsp:} \\
+    \textit{Auflösen:
+    $[-2, -4, 3, 1] \begin{bmatrix}
+        0 \\ 0 \\ 1 \\ d \\
+    \end{bmatrix} = 0$ \\
+    }
+    \textit{Distanz errechnen: $D = \|\vec{n}\| \bullet P_0$}
+
+    \item \textit{Perpsektivische Projektionsmatrix nun wie üblich ermitteln.}
+\end{enumerate}
+
+\textit{Nicht vergessen, ganze Matrix ergibt sich durch: $T^{-1}PT$,
+wobei $T$ Transformationsmatrix, $P$ Perspektivische Matrix ist.}
 
 \subsection{Sichtvolumen Clipping}
 
